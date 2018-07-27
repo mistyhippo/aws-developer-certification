@@ -1,0 +1,30 @@
+Security Groups Lab
+
+Security Group is a Virtual Firewall
+
+log into aws instance
+
+
+Make sure httpd service starts on reboot:
+chkconfig httpd on
+
+Any changes you make to a security group applies immediately
+
+Security Groups are stateful
+	- This means as soon as you add an inbound rule, outbound rules are added automatically
+
+You cannot deny network traffic using the inbound rules. Only allow traffic. Traffic is blocked by default
+
+All Inbound Traffic is Blocked by Default
+
+You can have any number of EC2 instances within a security group
+
+You can have multiple security groups attached to EC2 Instances
+	-aws will look at the multiple rules and configure them for you
+
+	Security Groupes are STATEFUL
+		- If you create an inbound rule allowing traffic in, that traffic is automatically allowed back out again
+
+	You cannot block specific IP addresses using Security Groups, instead use Network Access Control Lists
+
+	You can specify allow rules, but not deny rules.
