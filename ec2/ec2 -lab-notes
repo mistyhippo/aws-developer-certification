@@ -1,0 +1,23 @@
+Launching our First EC2 Instance
+
+VPC - Virtual Private Cloud
+
+Exam Tip
+- Be able to build a vpc from memory
+
+EBS volumes are set as delete on termination by default
+
+Using Tags for resources helps with tracking costs
+
+Make sure to change permissions on .pem file
+
+Chmod + 400 pemfile.pem
+
+You cant encrypt root volume of standard AMI
+
+EXAM TIPS
+	- Termination protection is turned off by default. You must turn it on
+	- on an EBS backed instance the default action is for the root EBS volume to be deleted when the instance is 	terminated
+	- EBS Root Volumes of your DEFAULT AMIs cannot be encrypted
+	- You can also use a third party tool to encrypt the root volume
+	- Additional storage volumes CAN be encrypted
