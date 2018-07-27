@@ -1,0 +1,15 @@
+Upgrading EBS Volume Types Lab
+
+lsblk
+ - command to list what storage is mounted on the volume
+
+ mkfs -t ext4 /deb/xvdb
+  	- create a file system on the storage device
+
+  	Best Practice to Stop your EC2 instance and create a snapshot and you can change your volume type
+
+  	You can change volume types by taking a snapshot and then using the snapshot to create a new volume
+
+  	If you chane a volume on the fly you must wait for 6 hours before making another change
+
+  	
