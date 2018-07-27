@@ -1,0 +1,24 @@
+What is IAM?
+
+- IAM allows you to manage users and their level of access to the AWS Console
+
+What does IAM give you?
+
+- Centralized control of your AWS account
+- Shared Access to your AWS account
+- Granular Permissions
+- Identity Federation (inlcuding Active Directory, Faceboo, Linkedin)
+- Multifactor Authentication
+- Provide temporary access for users/devices and services where necessary
+- Allows you to setup your own password rotation policy
+- Integrates with many different AWS services
+- Supports PCI DSS Compliance
+
+Key Terms:
+Users - End Users
+Groups - Collection of users under one set of permissions
+Roles - You create roles and can then assign them to AWS resources
+Policies - A document that defines one or more permissions
+
+Access Key ID  & Secret access key can only be used to login programattically
+To login into the console you use your User name and Password
