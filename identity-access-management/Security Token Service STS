@@ -1,0 +1,58 @@
+Security Token Service
+
+- Grants users limited and temporary access to AWS resources. 
+
+- Users can come from three sources:
+		1)Federation (Active Directory)
+		- Uses Security Assertion Markup Language (SAML)
+		- Grants temporary access based off the users Active Directory credentials
+			Does not need to be a user in IAM
+		- Single Sign On allows uers to log into AWS console without assigning IAM credentials
+
+		2) Federation with Mobile Apps
+			- Use Facebook/Amazon/Google or other OpenID providers to login
+
+		3) Cross Account Access
+			- Let's users from one AWS account access resources in another
+
+	Key Terms:
+
+	Federation
+	- combining or joining a list of users in one domain(such as IAM) with a list of users in another domain (such as Active Directory)
+
+	Identity Broker
+	- a service that alows you to take an identity from point A and join it to point B
+
+	Identity Store
+	- Services like Active Direcotry, Facebook, Google
+
+	Identities
+	- a user of a service like Facebook
+
+	Typical Authentication Work Flow:
+
+	1) employee enters their username and password
+	2) the application calls an Identity Broker. The broker captures the username and password
+	3) The Identity Broker uses the organizations' LDAP directory to validate the employee's identity
+	4) The identity Broker calls the new GetFederationToken function using IAM Credentials. The call must include an IAM policy and a duration (1 to 36), along with a policy that specifies the permissions to be ranted to the temporary security credentials
+	5) The Security Token Service confirms that the policy of the IAM user making the call to GetFederationToken gives permission to create new tokens and then returns four values to the application:
+		- Access key
+		- secret access key
+		- token
+		- duration (token's lifetime)
+	6) The Idenity Broker returns the temporary security credentials to the reporting application
+	7) the data storage application uses the temporary security credentials (including the token) to make request to  Amazon S3
+	8) Amazon S3 uses IAM to verify that the credentials allowed the requested operation on the given S3 bucket and key
+	9) IAM provides S3 with the go-ahead to perform the requested operation
+
+	Exam Tip
+	Scenario 1
+	1) Develop an Identity Broker to communicate with LDAP and AWS STS
+	2) Identity Broker always authenticates with LDAP first, THEN with AWS STS
+	3) Application then gets temporary access to AWS resources
+
+	Scenario 2
+	1) Develop an Identity Broker to communicate with LDAP and AWS STS
+	2) Identity Broker always authenticates with LDAP first, gets an IAM Role associated with a user
+	3) Application then authenticates with STS and assumes that IAM Role
+	4) Application uses that IAM role to interact with S3
