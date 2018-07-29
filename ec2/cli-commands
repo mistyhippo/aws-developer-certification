@@ -1,0 +1,41 @@
+CLI Commands for the Developer Exam
+
+keywords:
+
+describe-instances
+
+describe-images
+
+run-instances
+
+ssh -i "MyEC2KeyPair.pem" ec2-user@ec2-54-183-204-142.us-west-1.compute.amazonaws.com
+
+sg-0d807f6e1b1660138
+
+To launch an instance in EC2-VPC
+
+aws ec2 run-instances --image-id ami-0e86606d  --count 1 --instance-type t2.micro --key-name MyEC2KeyPair.pem --security-group-ids sg-0d807f6e1b1660138 --subnet-id subnet-6e7f829e
+
+
+To describe Windows AMIs from Amazon that are backed by Amazon EBS
+aws ec2 describe-images --owners amazon --filters "Name=platform,Values=windows" "Name=root-device-type,Values=ebs"
+
+To terminate an Amazon EC2 instance
+aws ec2 terminate-instances --instance-ids i-0903e8a409e67a7a6
+
+EXAM TIPS
+
+AWS EC2 DESCRIBE-INSTANCES
+AWS EC2 DESCRIBE-IMAGES
+AWS EC2 RUN-INSTANCES
+
+
+When using S3 buckets from the command line make sure to use the --region flag when transferring files between buckets
+
+To access buckets from the command line you will need to either have an access key or assign a role to the bucket.
+	- assigning a role to the bucket is more secure
+
+	
+
+
+

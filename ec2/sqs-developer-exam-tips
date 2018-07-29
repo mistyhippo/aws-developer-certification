@@ -1,0 +1,35 @@
+SQS Developer Exam Tips
+
+SQS Messages can be delivered multiple times and in any order
+
+Default Visibility Time Out is 30 seconds
+
+Maximum Time Out is 12 Hours
+
+When you receive a message from a queue and begin processing it, you may find the visibility timeout for the queue is insufficient to fully process and delete that message. To give yourself more time to process the message, you can extend its visibility timeout by using the ChangeMessageVisibility action to specify a new timeout value.
+
+Amazon SQS restarts thetimeout period using the new value.
+
+SQS long polling is a way to retrieve messages from your SQS queues. 
+
+While the traditional SQS short polling returns immediately, even if the queue being polled is empty, SQS long polling doesnt return a response until a message arrives in the queue, or the long poll times out.
+
+SQS long polling makes it easy and inexpensive to retrieve messages from your SQS queue as soon as they are availble.
+
+Maximum Long Poll Time Out = 20 seconds
+
+Example Question:
+
+Polling in tight loops is burning CPU cycles and cosing the company money. How would you fix this?
+
+Answer: Enable Long Polling
+
+
+Fanning Out
+
+Create an SNS topic first using SNS. Then create and subscribe multiple SQS queues to the SNS topic
+
+Now whenever a message is sent to the SNS topic, the message will be fanned out to the SQS queues, 
+
+i.e. SNS will deliver the message to all the SQS queues tht are subscribed to the topic 
+

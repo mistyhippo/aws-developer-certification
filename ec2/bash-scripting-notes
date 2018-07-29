@@ -1,0 +1,26 @@
+Bash Scripting Notes
+
+When created EC2 Instances bash scripts are passed in under Advanced Details in the Configure Instance Details page
+
+Create an EC2 instance
+
+put a file in the instance folder
+
+create bash script
+
+create another ec2 instance and put the bash script in the advanced details section
+
+
+#!/bin/bash
+
+yum update -y
+
+yum install httpd -y
+
+service httpd start
+
+chckconfig httpd on
+
+cd /var/www/html
+
+aws s3 cp s3://bestbucketintheworld-hippo/index.html /var/www/html

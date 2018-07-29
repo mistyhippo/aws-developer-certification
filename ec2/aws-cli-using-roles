@@ -1,0 +1,10 @@
+Identity Access Management Roles 
+
+Credentials can be stored locally on cell phones and laptops
+
+storing aws credentials on an ec2 instance is a security risk
+
+Roles are created Globally not Regionally
+
+It is possible to attach a role to a running EC2 instance
+
