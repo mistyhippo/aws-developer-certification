@@ -21,6 +21,26 @@
 		across the Internet
 		- Each domain name becomes registered in a central database known as the WhoIS database.
 
+		SOA Records
+		- stores information about: 
+			- The name of the server that supplied the data for the zone
+			- The administrator of the zone
+			- The current version of the data file
+			- The number of seconds a secondary name server should wait before checking for updates
+			- the number of seconds a secondary name server should wait before retrying a failed zone transfer
+
+		NS Records
+		 - Stands for Name Server records 
+		 - used by Top Level Domain servers to direct traffic to the Content DNS server which contains the authoritative DNS records
+
+		A Records
+		- "A" record is the fundamental type of DNS record
+		- A stands for Address
+		- A record is used by a computer to translate the name of the domain to the IP address
+
+		An Elastic Load Balancer never has an IPv4 or IPv6 address
+		Elastic Load Balancers always have a DNS name
+
 		TTL
 		- The length that a DNS record is cached on either the Resolving Server or the users own local PC is equal to the value of the "Time To Live"(TTL) in seconds. 
 		- The lower the time to live, the faster changes to DNS records take to propagate throughout the internet
