@@ -1,0 +1,23 @@
+			SDKs Exam Tips
+
+
+	Know the available SDKs:
+	https://aws.amazon.com/tools/
+
+	- Android, iOS, JavaScript
+	- Java
+	- .Net
+	- Node.js
+	- PHP
+	- Python
+	- Ruby
+	- Go
+	- C++
+
+	SDK Default Regions
+	- Default Region-US-EAST-1
+
+	Some have a default region(Java)
+	Some don't have a default region (Node.js)
+
+	

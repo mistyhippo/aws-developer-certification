@@ -1,0 +1,32 @@
+		Elastic Load Balancers Exam Tips
+
+
+2 types of Load Balancers
+- Application Load Balancer
+- Classic Load Balancer
+
+Application Load Balancer
+- work at layer 7
+- the preferred load balancer for http/https
+
+Classic Load Balancer
+- layer 4 load balancer
+
+Unheatlhy threshold: how many times of failure before being classified as unhealthy
+
+Don't use public IP addresses for ELB. Use DNS names.
+
+Once your EC2 instance is out of service the ELB will not send traffic to that EC2 instance because its failing the health check
+
+1 subnet = 1 availability zone
+
+Instances monitored by ELB are reported as: 
+- InService
+- OutofService
+
+Health Checks check the instance health by talking to it
+
+ELBs have their own DNS name. You are never given an IP address
+
+Read the ELB FAQ for Classic Load Balancers
+
