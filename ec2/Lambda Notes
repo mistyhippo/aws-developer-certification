@@ -1,0 +1,46 @@
+						Lambda Notes
+
+	Will most likely be on the exam at this point
+
+	What is Lambda?
+
+	- AWS Lambda is a compute service where you can upload your code and create a Lambda function.
+	- AWS Lambda takes care of provisioning and managing the servers that you use to run the code
+	- You dont have to worry about operating systems, patching, scaling, etc.
+
+	- YOu can use Lambda in the following ways:
+		- As an event-driven compute service where AWS Lambda runs your code in response to events
+		- These events could be changes to data in an Amazon S3 bucket or an Amazon DynamoDB table
+		- As a compute service to run your code in response to HTTP requests using Amazon API Gateway or API calls made using AWS SDKs
+
+
+
+	- Data Centres
+	- Hardware
+	- Assembly Code/Protocols
+	- High Level Languages
+	- Operating Systems
+	- Application Layer/ AWS APIs
+	- AWS Lambda
+
+	What languages are supported in Lambda?
+	- Node.js
+	- Java
+	- Python
+	- C#
+
+	How is Lambbda Priced?
+	- Based on Number of requests
+		- First 1 millison requests are free
+		- $0.20 per 1 million requests after that
+
+	- Duration
+		- Durations is calculated from the time your code begins executing until it returns or otherwise terminates,
+		  rounding up to the nearest 100ms
+		  - The price depends on the amount of memory you allocate to your function. You are charged $0.00001667 for
+		  	every GB-second used
+
+	Why is Lambda Cool?
+	 - No Servers!
+	 - Continuous Scaling
+	 - Super super super cheap
