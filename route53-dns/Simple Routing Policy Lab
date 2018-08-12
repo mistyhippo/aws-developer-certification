@@ -1,0 +1,14 @@
+		Simple Routing Policy Lab
+
+		Route53 Routing Policies
+
+		- Simple
+		- Weighted
+		- Latency
+		- Failover
+		- Geolocation
+
+		Simple
+		- this is the default routing policy when you create a new record set
+		- This is the most commonly used when you have a single resource that performs a given function for your domain
+		
