@@ -1,0 +1,32 @@
+	Using Web Identity Providers to Connect To Authenticate To DynamoDB
+
+	Web Identity Providers
+
+	You can authenticate using Web Identity providers (such as Facebook, Google, Amazon)
+
+	This is done using AssumeRoleWithWebIdentity API
+
+	You will need to create a role first.
+
+	Web Identity Providers
+	1) Web Identity Token
+	2) App ID of provider
+	3) ARN of Role
+
+	1) AccessKeyId,SecretAccessKey,SessionToken
+
+	2) Expiration(time limit) (time limit by default is 1 hour)
+
+	3) AssumeRoleID
+
+	4) SubjectFromWebIdentity
+	(the unique ID that appears in an IAM policy variable for this particular identity provider)
+
+	Steps taken to Authenticate (Remember these)
+	1) User Authenticates with ID provider (such as Facebook)
+	2) They are passed a Token by their ID provider
+	3) Your code calls AssumeRoleWithWebIdentity API and provides the providers token and specifies the ARN for the IAM Role
+	4) App can now access Dynamodb from between 15 minutes to 1 hour (default is 1 hour)
+
+	
+

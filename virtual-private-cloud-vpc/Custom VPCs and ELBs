@@ -1,0 +1,23 @@
+	Custom VPCs and ELBs
+
+Application load balancers are layer 7 load balancers
+
+Classic load balancers are layer 4 load balancers
+
+You need two public subnets if you want high availability 
+
+
+NATs vs Bations
+
+Bastions are used for administration
+
+NAT instances are on their way out in favor of NAT gateway
+
+NAT instance will be behind a security group
+NAT gateway wont be behind a security group
+
+Exam Tips - NAT vs Bastions
+
+- A NAT is used to provide internet traffic to EC2 instances in private subnets
+- A Bastion is used to securely administer EC2 instances(using SSH or RDP) in private subnets. 
+	- In Australia we call them jump boxes.

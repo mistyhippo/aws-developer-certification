@@ -18,4 +18,22 @@ Quick facts about DynamoDB
 	- Repeating a read after a short time should return the updata data (Best Read Performance)
 
 - Strongly Consistent Reads
-	- A strongly consistent read returns a result that reflects all writes that received a successful response prior to the readj
+	- A strongly consistent read returns a result that reflects all writes that received a successful response prior to the read
+
+	The Basics
+	- Tables
+	- Items (Thin a row of data in table)
+	- Attributes(Think of a column of data in a table)
+
+	Pricing
+	 - Provisioned Throughput Capacity
+	 	- Write Throughput $0.0065 per hour for every 10 units
+	 	- Read Throughput $0.0065 per hour for every 50 units
+
+	 First 25 GB stored per month is free
+
+	 Storage costs of $0.25GB per month after that
+
+	 A DynamoDB Write Capacity Unit can handle 1 write per second
+
+	 Easiest Way to Learna DynamoDB?

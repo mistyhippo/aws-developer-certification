@@ -1,0 +1,93 @@
+	DynamoDB Provisioned Throughput Calculations
+
+	Exam Tip
+
+	You will be given a scenario and asked to calculate the read or write throughput
+
+	Provisioned Throughput
+	- Unit of Read provisioned throughput
+		- All reads are rounded up to increments of 4KB
+	- Eventually Consistent Reads(default) consist of 2 reads per second
+	- Strongly Consistent Reads consist of 1 read per second
+
+	- Unit of Write provisioned throughput
+		- All Writes are 1KB
+		- All writes consist of 1 write per second
+
+	(Size of Read rounded to nearest 4 KB chunk / 4 KB) X no of items = read throughput
+
+	Divide by 2 if eventually consistent
+
+	Example Question:
+	 - You have an application that requires to read 10 items of 1KB per second using eventual consistency. What should you set the read throughput to?
+
+	 - First we calculate how many read units per item we need
+	 - 1KB rounded to the nearkest 4KB increment = 4
+	 - 4KB/4KB = 1 read unit per item
+
+	 - 1 x 10 read items = 10
+	 - Using eventual consistency we get 10/2 =5
+	 - 5 units of read throughput
+
+
+	 Example Question 2:
+
+	 You have an application that requires to read 10 items of 6KB per second using eventual consisteny. What should you set the read throughput to?
+
+	 First we calculate how many read units per item we need
+	 - 6KB rounded up to the nearest increment of 4KB is 8 KB
+	 - 8KB/ 4KB = 2 read units per item
+
+	 2 x 10 read items = 20
+	 Using eventual consistency we get 20/2 = 10
+	 10 units of read throughput
+
+	 Example Question 3:
+
+	 You have an application that requires to read 5 items of 10KB per second using eventual consistency. What should you set the read throughput to?
+
+	 - First we calculate how many read units per item we need
+	 - 10 KB rounded up to nearest increment of 4KB is 12 KB
+	 - 12 KB / 4KB = 3 read units per item
+
+	 3 X 5 read items = 15
+	 - Using eventual consistency we get 15/2 = 7.5
+	 8 units of read throughput
+
+	 Example 4
+
+	 You have an application that requires to read 5 items of 10 KB per second using strong consistency. What should you se tht read throughput to?
+
+	 - First we calculate how many read units per item we need
+	 - 10 KB rounded up to nearest increment of 4KB is 12 KB
+	 - 12KB/4KB = 3 read units per item
+
+	 3 X 5 read items = 15
+	 Using strong consistency we DON'T divide by 2
+	 15 units of read throughput
+
+	 Example 5 - WRITE THROUGHPUT
+
+	 You have an application that requires to write 5 items, with each item being 10 KB in size per second. What should you set the write throughput to?
+
+	 - Each write unit consist of 1KB of data. You need to write 5 items per second with each item using 10 KB of data
+	 - 5 X 10KB = 50 write units
+	 - Write throughput of 50 units
+
+	 Example 6 - WRITE THROUGHPUT
+
+	 You have an application that requires to write 12 items of 100KB per item each second. What should you set the write thoughput to?
+
+	 - Each write unit consist of 1 KB of data. You need to write 12 items per second with each item having 100KB of data
+
+	 - 12 X 100KB = 1200 write units
+
+	 - Write throughput of 1200 Units
+
+	 Error Codes
+
+	 400 HTTP Status Code - ProvisionedThroughputExceededException
+
+	 You exceeded your maximum allowed provisioned throughput for a table or for one or more global or secondary indexes
+
+

@@ -1,0 +1,48 @@
+	DynamoDB Indexes
+
+DynamoDB - Primary Keys
+
+Two Types of Primary Keys Available;
+
+Single Attribute(think unique ID)
+	-  Partition Key (Has Key) composed of one attribute
+
+Composite (think unique ID and a date range)
+ 	- Partition Key and Sort Key (Hash and Range)composed of two attributes
+
+ Partition Key
+ 	- DynamoDB uses the partition key's value as input to an internal hash function.
+ 	- The output from the hash function determines the partition (this is simply the physical location in which the data is stored)
+
+ No two items in a table can have the same partition key value!
+
+Partition Key and Sort Key
+- dynamoDB uses the partition key's value as input to an internal hash function
+- The output from the hash function determines the partition(this is simply the physical location in which the data is stored)
+
+	- Two items can have the same partition key, but they must have a different sort key.
+	- All items with the same partition key are stored together, in sorted order by sort key value.
+
+	DynamoDB- Indexes
+
+	Local Secondary Index
+		- Has the SAME Partition key, different sort key
+		- Can ONLY be created when creating a table.
+			- They cannot be removed or modified later
+
+	Global Secondary Index
+		- Has DIFFERENT Partition key and different sort key
+		- Can be created at table creation or added LATER
+
+
+	DyanamoDB Streams
+	- Used to capture any kind of modification of the DyanmoDB tables
+	- If a new item is added to the table, the stream captures an image of the entire item, including all of its attributes
+	- If an item is updated, the stream captures the "before" and "after"image of any attributes that were modified in the item.
+	- If an item is deleted from the table, the stream captures an image of the entire item before it was deleted
+
+	DynamoDB Streams Stored for 24 hours
+
+	You can have up to 5 local and global secondary indexes per table
+
+	Triggers

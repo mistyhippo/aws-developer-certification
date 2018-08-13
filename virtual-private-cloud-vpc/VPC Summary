@@ -1,0 +1,71 @@
+		VPC Summary
+
+	Be able to build out your own VPC from memory including public and private subnets including NAT instances and Bastion hosts 
+
+	Basic Exam Tips
+
+	- Think of a VPC as a logical datacenter in AWS 
+
+	VPCs can span multiple availability zones 
+	VPCs cannot span multiple regions
+
+	VPCs consist of IGWs(or Virtual Private Gateways) Route Tables, Network Access Control Lists, Subnets, Security Groups
+
+	1 subnet = 1 availability zone
+
+	Security Groups are Stateful, Network Access Control Lists are Stateless
+	
+	Can Peer VPC both in the same account and with other AWS accounts 
+
+	No such thing as Transitive peering
+
+	Exam Tips - NAT instances
+	- When creating a NAT instance, Disable Source/Destination Check on the Instance
+	- NAT instance must be in a public subnet
+	- Must have an elastic IP address to work
+	- There must be a route out of the private subnet to the NAT instance, in order for this work
+	- The amount of traffic that NAT instances supports, depend on the instance size
+	- If you are bottlenecking, increase the instance size
+	- You can create high availability using Autoscaling Groups, multiple subnets in different AZ's and a script to automate failover. 
+	- NAT instances are always behind a security group
+
+	Exam Tips- NAT Gateways
+	 - preferred by the enterprise
+	 - scale automatically up to 10Gbps
+	 - no need to patch
+	 - not associated with security groups
+	 - automatically assigned a public ip address
+	 - remember to update your route tables
+	 - no need to disable source/destination checks
+
+	 Exam Tips - Network ACLs
+	 	- Your VPC automatically comes with a default network ACL and by default it allows all outbound and inbound traffic
+	 	- You can create a custom network ACL.
+	 		- By default, each custom network ACL denies all inbound and outbound traffic until you add rules
+	 	- Each subnet in your VPC must be associated with a netowrk ACL.
+	 		- If you don't explicitly associate a sunet with a network ACL, the subnet is automatically associated with the default network ACL
+	 	- You can associate a network ACL with multiple subnets
+	 		- A subnet can be associated with only one network ACL at at time
+	 		- When you associate a network ACL with a subnet, the previous association is removed
+	 	- A network ACL contains a numbered list of rules that is evaluated in orders, starting with the lowest numbered rule.
+	 	- A network ACL has separate inbound and outbound rules, and each rule can either allow or deny traffic. 
+	 	- Network ACLs are stateless: responses to allowed inbound traffic are subject to the rules for outbound traffic (and vice versa)
+
+	 	Exam Tips - Network ACLs
+	 		- Block IP addresses using network ACLs not Security Groups
+	 		- no option to deny traffic in a security group
+
+	 	Exam Tips - NAT vs Bastions
+	 		- A NAT is used to provide internet traffic to EC2 instances in private subnets
+	 		- A Bastion is used to securely administer EC2 instances(using SSH or RDP)in private subnets
+
+	 	Exam Tips - Resiliant Architecture
+	 		- If you want resiliency, always have 2 public subnets and 2 private subnets. 
+	 		- Make sure each subnet is in different availability zone
+	 		- With ELBs make sure they are in 2 public subnets in 2 different availability zones 
+	 		- With Bastion hosts, put the behind an autoscaling group with a minimum size of 2. 
+	 			- Use Route53(either round robin or using a health check)to automatically fail over.
+	 		NAT instances are tricky to make relient. You need 1 in each public subnet, each with their own public IP address, and you need to write a script to fail between the two.
+	 			- Instead where possible , use NAT gateways
+
+

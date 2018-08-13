@@ -1,0 +1,103 @@
+	DynamoDB - Summary
+
+What is DynaoDB?
+Amazoon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale
+
+It is a fully managed database and supports both document and key-value data models.
+
+It's flexible data model and reliable performance make it a great fit for mobile, web, gaming, ad-tech, IoT, and many other applications
+
+Quick facts about DynamoDB
+ - Stored on SSD storage
+ - Spread across 3 geographically distinct data centres
+
+ - Eventual Consistent Reads(Default)
+ 	- consistency across all copies of data is usually reached within a second
+ 	- Repeating a read after a short time should return the updated data (Best Read Performance)
+
+ - Strongly Consistent Reads
+ 	- A strongly consistent read returns a result that reflects all writes that received a successful response prior to the read
+
+ 	The Basics
+ 	- Tables
+ 	- Items
+ 	- Attributes
+
+ 	DynamoDB - Primary Keys
+
+ 	Two Types of Primary Keys Available;
+
+ 	- Single Attribute
+ 		- Partition Key(Hash Key) composed of one attribute
+
+ 	- Composite 
+ 		- Partition Key and Sort Key composed of two attributes
+
+ 	Partition Key
+ 		- DynamoDB uses the partition key's value as input to an internal hash function
+ 		- The output from the hash function determines the partion (this is simply the physical location in which the data is stored)
+
+ 		- No two items in a table can have the same partition key value!
+
+ 	Partition Key and Sort Key
+ 	- DynamoDB uses the partition key's value as input to an internal hash function.
+ 	- The output from the hash function determines the partition
+
+ 	- Two items can have the same partition key, but they must have a different sort key.
+
+ 	- All items with the same partition key are stored together, in sorted order by sort key value. 
+
+ 	DynamoDB - Indexes
+
+ 	Local Secondary Index
+ 		- Has the SAME Partition key, different sort key.
+ 		- Can ONLY be created when creating a table. They cannot be removed or modified later.
+
+ 	Global Secondary Index
+ 		- Has DIFFERENT Partition key and different sort key.
+ 		- Can be created at table creation or added LATER.
+
+ 	DynamoDB Streams
+ 		- Used to capture any kind of modification of the DynamoDB tables
+
+ 		If a new item is added to the table, the stream captures an image of the entire item, including all of its attributes. 
+
+ 		- If an item is updated, the stream captures the "before" and "after" image of any attributes that were modified in the item. 
+
+ 		- If an item is deleted from the table, the stream captures an image of the entire item before it was deleted.
+
+
+ 	Query and Scans
+ 		- A Query operation finds items in a table using only primary key attribute values.
+ 		- You must provide a partition key attribute name and a distinct value to search for.
+
+ 		- A Scan operation examines every item in the table.
+ 		- By default, a Scan returns all of the data attributes for every item
+ 		- However, you can use the ProjectionExpression paramater so that the Scan only returns some of the attributes, rather than all of them.
+
+ 	Try to use a query operation over a Scan operation as it is more efficient. 
+
+ 	Steps taken to authenticate with web identity providers:
+
+ 	1) User Authenticates with ID provider (such as Facebook)
+ 	2) They are passed a Token by their ID provider
+ 	3) Your code calls AssumeRoleWithWebIdentity API and provides the providers token and specified the ARN for the IAM Role
+ 	4) App can now access Dynamodb from between 15 minutes to 1 hour (default is 1 hour)
+
+ 	DynamoDB supports atomic counters, where you use the UpdateItem operation to increment or decrement the value of an existing atribute without interfering with other write requests. (All write requests are applied in the order in which they are received)
+
+ 	For example, a web application might want to maintain a counter per visitor to their site. In this case, the application would need to increment this counter regardless of its current value.
+
+ 	Atomic counter updates are not idempotent.
+ 	- This means that the counter will increment each time you call UpdateItem
+ 	- If you suspect that a previous request was unsuccessful, your application could retry the UpdateItem operation
+ 	- However, this would risk updating the counter twice
+ 	- This might be acceptable for a website counter, because you can tolerate with slightly over- or under-counting the visitors
+ 	- However, in a banking application, it would be safer to use a conditional update rather than an atomic counter
+
+ 	Batch Operations
+ 		- If your application needs to read multiple items, you can use the BatchGetItem API
+ 		- A single BatchGetItem request can retrieve up to 1MB of data, which can contain as many as 100 items. 
+ 		- In addition, a single BatchGetItem reuqest can retrieve items from multiple tables. 
+
+ 		
