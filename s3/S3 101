@@ -1,0 +1,133 @@
+		S3 101
+
+	S3 provides developers and IT teams with secure, durable, highly-scalable object storage.
+
+	Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web
+
+	S3 is a safe place to store your files.
+
+	It is Object based storage
+
+	The data is spread acriss multiple devices and facilities
+
+	S3 - The Basics
+
+	S3 is Object based i.e. allows you to upload files
+
+	Files can be from 0 bytes to 5 TB in size
+
+	There is unlimited storage
+
+	Files are stored in Buckets.
+
+	S3 is a universal namespace, that is, names must be unique globally
+
+	https://s3-eu-west-1.amazonaws.com/acloudguru
+
+	understand the format of bucket names
+
+	When you upload a file to S3 you will receive a HTTP 200 code if the upload was successful
+
+	Data Consistency Model for S3
+
+		- Read after Write consistency for PUTS of new Objects
+		- Eventual Consistency for overwrite PUTS and DELETES(can take some time to propogate)
+		- When you write a new object to S3 you will be able to immediately read it
+		- If you are deleting or updating an object it can take some time for that to be consistent across the S3 bucket
+
+		S3 is a simple key value store
+
+		S3 is Object based.
+
+		Objects consist of the following:
+			- Key(This is simply the name of the object)
+			- Value(This is simply the data and is made up of a sequence of bytes)
+			- Version ID (Important for versioning)
+			- Metadata (Data about the data you are storing)
+
+		Key(This is simply the name of the object)
+		Value(This is simply the data and is made up of a sequence of bytes)
+		Version ID(Important for versioning)
+		Metadata(Data about the data you are storing)
+		Subresources
+			- Access Control Lists
+			- Torrent
+
+		Built for 99.99% availability for the S3 platform
+
+		Amazon guarantee 99.99% availability
+
+		Amazon guarantees 99.99999% durability for S3 information
+		(Remember 11 x 9s)
+
+		Tiered Storage Available
+
+		Lifecycle Management
+
+		Versioning
+
+		Encryption
+
+		Secure your data using Access Control Lists and Bucket Policies
+
+		Storage Tiers/Classes
+		- S3-99.99% availability, 99.999999999% durability, stored redundantly
+		across multiple devices in multiple facilities and is designed to sustain the loss of 2 facilities concurrently.
+		- S3-IA (Infrequently Access) For data that is accessed less frequently, but requires rapid access when needed. Lower fee than S3, but you are charged a 
+		retrieval fee.
+		- Reduced Redundancy Storage - Designed to provide 99.99% durability and 99.99% availability of objects over a given year.
+		- Glacier - Very cheap, but used for archival only.
+			- It takes 3-5 hours to restore from Glacier
+
+		What is Glacier?
+			- Glacier is an extremely low-cost storage service for data archival.
+			- Amazon Glacier stores data for as little as $0.01 per gigabyte per month, and is optimized for data that is infrequently accessed and for which retrieval times of 3 to 5 hours are suitable
+
+		S3- Charges
+			- Charged for:
+				- Storage
+				- # of Requests
+				- Storage Management pricing
+				- Data Transfer Pricing
+				- Transfer Acceleration
+
+		What is S3 Transfer Acceleration?
+			- Amazon S3 Transfer Acceleration enables fast, easy, and secure transfers of files over long distances between your end users and an S3 bucket
+
+		Transfer Acceleration takes advantage of Amazon CloudFront's globally distributed edge locations
+
+		As the data arrives at an edge location, data is routed to Amazon S3 over an optimized network path.
+
+	S3 Exam Tips for S3 101
+
+	- Rememeber that S3 is Object based i.e. allows you to upload files
+	- Files can be from 0 Bytes to 5 TB.
+	- There is unlimited storage
+	- Files are stored in Buckets
+	- S3 is a universal namespace, that is, names must be unique globally.
+	- Read after Write consistency for PUTS of new Objects
+	- Eventual Consistency for overwrite PUTS and DELETES (can take some time to propagate)
+
+	Storage Classes/Tiers
+		- S3 (durable, immediately available, frequently accessed)
+		- S3 - IA (durable, immediately available, infrequently accessed)
+		- S3 - Reduced Redudancy Storage(data that is easily reproducible)
+
+
+		Remember the core fundamentals of an S3 object:
+			- Key(name)
+			- Value(data)
+			- Version ID
+			- Metadata
+			- Subresources
+			- ACL
+				-Torrent
+
+		Object based storage only (for files)
+
+		Not suitable to install an operating system on
+
+		Successful uploads will generate a HTTP 200 status code
+
+		Read the S3 FAQ before doing the exam!
+			- Read the S3 FAQ before taking the exam. 

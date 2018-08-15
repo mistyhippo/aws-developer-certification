@@ -68,4 +68,3 @@
 	 		NAT instances are tricky to make relient. You need 1 in each public subnet, each with their own public IP address, and you need to write a script to fail between the two.
 	 			- Instead where possible , use NAT gateways
 
-

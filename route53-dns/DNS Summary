@@ -1,0 +1,21 @@
+		DNS Summary
+
+		DNS Exam Tips
+
+ Elastic Load Balancers do not have pre-defined IPv 4 addresses, you resolve to them using a DNS name
+
+ Understand the difference between an Alias Record and a CNAME
+
+ Given the choice, always choose an Alias Record over a CNAME
+
+ Remember the different routing policies and their use cases
+
+ - Simple
+
+ - Weighted
+
+ - latency
+
+ - Failover
+
+ - Geolocation
