@@ -1,0 +1,12 @@
+	AWS VPC
+
+- A VPC's scope is limited to a single region, however, it can span across multiple Availability Zones
+
+- Every AWS region has two or more AZs.
+
+- When you create a VPC you need to specify an IP range for that VPC
+	- This IP range is called CIDR
+	- CIDR is a set of IP standards that is used to create a unique identity for a network
+	- It defines a set of IPs that can be allocated to resources within a network
+
+	

@@ -1,0 +1,185 @@
+	Introduction to EC2
+
+	- Amazon EC2 is a virtualized environment on the cloud
+	- A provisioned EC2 resource is called an instance
+	- You can create new instances based on AMI
+	- AMIs are preconfigured templates, which include base operating systems and any additional software in a single package
+	- It provides various combinations of CPU, memory, storage and networking capacity for provisioning instances
+		 -These combinations are called instance types
+	- It provides a highly secured mechanism to log in to your instances using key pairs
+		- A key pair is a combination of private and public keys.
+		- When an instance is provisioned, a public key resides on the the EC2 instance and a private key is provided to the user who provisions the server.
+		- A key pair is used for login to an instance associated with the key pair.
+
+	- Amazon provides temporary as well as persistent storage for your EC2 instances
+	- Temporary storage is also called instance store
+	- Data on an instance store vanishes when the instances are stopped or restarted
+	- Amazon also provides persistent storage volumes on EC2, which is called EBS.
+	- Amazon provides multiple physical locations for provisioning EC2 instances known as AZs (Availability Zones)
+	- It provides firewall to your instances, your instances using security groups.
+	- Security groups can control what port, protocol, and source IPs can access your instance.
+	- It provides a static IPv4 address for your instances, which is called Elastic IP address.
+	- It allows you to assign metadata to your instances known as tages.
+		- A tag can be a name, environment, department, cost center
+	- EC2 instances are created in an isolated virtual environment and can be associated to a VPC.
+
+	On- Demand:
+		- By default, EC2 hourly charges are applied at the On-Demand rate
+		- On-Demand instances are charged on an hourly basis
+		- It is the costliest pricing option available in AWS
+		- When an instance is stopped, partial EC2 hours are rounded up for billing 
+		and you pay for a full hour
+		- On-Demand instances can be launched through AWS Management Console
+		- You can launch up to 20 instances at a time using the RunInstance API
+
+	Spot instances:
+		- It alows us to bid for a spare Amazon EC2 compute capacity
+		- If a spot instance is terminated by AWS before completing an hour, you 
+		  are not charged for that hour
+		- If you terminate a spot instance in between an hour, you're charged for that
+			incomplete hour
+		- Spot instances cannot be stopped and restarted
+			- If a spot instance is stopped, it gets terminated
+
+	Reserved Instances:
+		- This provides significant discount on the On-Demand per hour prices
+		- When you reserve an EC2 instance, you reserve an instance type and not a specific instance
+			- Discounted prices automatically applied on a monthly bill basis on an instance type usage in the account
+		- EC2 instances can be reserved at the AZ or at the region
+			- Reserved Instance at the region level gives flexibility to select an instance type and AZ.
+		- Payment mode (All Upfront, Partial Upfront, or No Upfront) and 
+			term(one year or three years) can be selected
+			- It is recommended to reserve for a year only, as AWS periodically reduces resource pricing
+
+	Dedicated Hosts: 
+		- When using Dedicated Hosts, EC2 instances from the same AWS account are physically isolated on Dedicated Hosts
+		- Applicable price per hour, based on the selected pricing model
+		- Additionally, dedicated per region fees.
+			- It is $2, applicable per hour for at lease one Dedicated EC2 instance of any type running per region.
+
+	AMI
+	 - An AMI contains a set of information to launch an instance
+	 	- It contains a template that includes info such as operating system,
+	 	application server, and any other application software
+	 	- It contains launch permissions describing which AWS account can use the
+	 	AMI to spin up new instance
+	 	- It also contains block device mapping, describing the volume information to be attached to the instance while launching
+	 	-Critical components in choosing an AMI
+	 		- Root device volume type
+	 		- Virtualization type
+
+	 Root device types
+	 	- A bootbable block device of the EC2 instance is called root device
+	 	- An AMI can have either of two root device types:
+	 		- Amazon EBS-backed AMI (uses permanent block storage to store data)
+	 		- Instance store-backed AMI(which uses ephemeral block storage to store data)
+
+	 Placement group
+	 	- A placement group is a logical grouping of EC2 instances within a single AZ.
+	 	- A placement group can span across peered VPCs
+	 	- When network traffic is flowing to and from outside the placement group, network throughput is limited to 5 GBps.
+	 	- An existing EC2 instance in the same AZ cannot be moved inside a placement group.
+	 		- It requires creating an AMI of the existing instance and then launching a new EC2 instance inside the placement group.
+	 	- Even in the same account, placement groups cannot be merged
+	 	- When you stop and start an instance inside a placement group, it remains in the same placement group.
+	 	- If you get a capacity error while launching an instance inside a placement group, you can stop and start all instances in the placement group.
+	 		- Stopping and starting instances automatically migrates the instances to another hardware that has capacity to run them. 
+
+
+	 Introducing EBS
+	 	- EBS is an AWS block storage service, that provides block level, persistent storage volumes for EC2 instances. 
+	 	- An EBS volume can be attached only to the EC2 instances running in the same AZ.
+	 	- It provides persistent storage and it is independent from the EC2 instance
+	 	- AWS charges for the allocated EBS volume sizes, even if the volume is not attached to any instance.
+	 		- Also charges are based on the allocated volume size and not based on how much data is stored on the volume.
+	 	- AWS replicates EBS data at least three times within a single AZ.
+	 	- EBS volumes are not directly attached to the hosts, but they are network-attached block storage.
+
+	 	Types of EBS
+	 		- Solid State Drive
+	 		- Hard Disk Drive
+	 		- Magnetic
+
+	 	General Purpose SSD
+	 	- It is recommended for almost all workload types
+	 	- Can be used as a root volume for an operating system
+	 	- Can be attached to a virtual desktop
+	 	- In an interactive apps requiring low-latency storage
+	 	- Development workloads 
+	 	- Testing environments 
+
+	 	Proisioned IOPS SSD
+	 	- It can be used in mission critical applications
+	 	- Business critical application requiring consistent performance
+	 	- It can be used in large databases workloads 
+
+	 	Throughput Optimized HDD
+	 	- designed to provide a financially viable magnetic storage options
+	 	- Where to use st1 volumes:
+	 		- Applications requiring consistent and fast throughput at a low cost
+	 		- Big data
+	 		- Data warehouse
+	 		- Log processing 
+
+	 	Cold HDD
+	 	- designed to provide a cost effective magntic storage option
+	 	- can be used in throughput-oriented storage
+	 	- Use it for large volumes of data when you don't need to access it frequently
+	 	- In application needs where there is a neet to lower the storage cost
+
+	 	Encrypted EBS
+	 	- Amazon provides a simple EBS encryption solution that does not require building, maintaining, and securing. 
+	 	- Amazon EBS encrypts the data using the AWS Key Management Service(KMS) with
+	 	a customer master key whenever you create an encrypted volume and subsequently any snapshots from them. 
+	 	- In order to use a custom key to encrypt EBS volumes, you need to create a 
+	 	Custom Master Key(CMK) in AWS KMS. 
+	 		- Creating CMK gives more control over disabling, defining access control, and rotating encryption keys.
+	 	- The root volume attached to the AWS EC2 instance cannot be encyrpted
+
+	 	Monitoring EBS volumes with CloudWatch
+	 	 - Once desired size and type of EBS volumes are created, it is recommended you monitor the performance of the volumes.
+	 	 - When an EBS volume is created, AWS automatically creates several CloudWatch metrics for each EBS volumes. 
+	 	 - Monitoring data is categorized into basic and detailed monitoring
+	 	 	- Basic monitoring details are free and include metrics such as read 
+	 	 	bandwidth, write bandwidth, read throughput, write throughput
+
+	 	 Snapshots
+
+	 	 - EBS snapshot is an AWS service that provides a mechanism to backup EBS volumes. 
+	 	 - AWS provides a way to backup your EBS data on S3 by taking a point-in-time snapshot
+	 	 - Snapshots are incremental in nature
+	 	 - An EBS snapshot can be taken whether or not EBS volumes are attached to an instance
+
+
+	 	EC2 best practices
+	 		- Ensure that unused EC2 instances are stopped and if not required, terminate them
+	 			- It reduces unnecessary cost in the monthly AWS billing
+	 		- closely observe snapshots and AMIs, timely perform housekeeping and
+	 		discard all the AMIs and snapshots
+	 			- It is recommended you automate and monitor this process
+	 		- Ensure that an instance type is set per the requierment of the application hosted on the instance.
+	 			- It is recommended you optimize instance type as per application performance
+	 		- To match a seasonal spike in compute requirement, plan for Auto Scaling and load balancing
+	 		- Divide your application load in multiple instances rather than going for one big instance, where possible.
+	 			- Dividing the application workload over multiple instances, in different AZ, can avoid single point of failure.
+	 		- Ensure to use On-Deand, Spot, and Reserved Instances in the environment based on the need. 
+	 			- Balancing the instance types can significanly reduce cost as reserved and spot instances provide a huge cost benefit.
+	 		Always keep your key pairs safely.
+	 			Once a key pair is lost, it cannot be recovered from AWS.
+	 		- Do not embed access key and secret key into the EC2 instance.
+	 			- Where possible, use EC2 roles for accessing AWS resources from an EC2 instance.
+	 		- Attach appropriate IAM roles and policies, at the time of creating an EC2 instance to grant access to other AWS services
+	 		- Periodically update security groups and maintain least permissive rules.
+	 		- Periodically update and patch the OS to overcome possible security and other vulnerabilities
+	 		- According to the data storage requirement such as persistent or temporary, select EBS or instance-type backed AMI forprovisioning an instance.
+	 		- It is recommed you use separate volumes for the operating system and data storage.
+	 		- Always tag AWS resoruces with appropriate and relevant tags.
+	 			- It provides a convenient way to identify the right EC2 instance at the time of performing maintenance
+	 		- Create golden AMIs and update them periodically
+	 		- Periodially perform maintenance to delete obsolete and unwanted AMIs as well as snapshots to minimize monthly AWS billing
+	 		- Monitor EC2 and EBS volumes to identify any peformance bottleneck in the environment. 
+
+	 		d
+
+
+

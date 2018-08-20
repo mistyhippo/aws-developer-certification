@@ -1,0 +1,43 @@
+	IAM Exam Tips
+
+	- AWS IAM service is a global service
+		- It's not region specific
+		- IAM entities such as users, groups, roles, and policies are the same across all the regions
+		- Once they are created, they are the same for all the AWS regions
+
+	- By default, newly created IAM users do not have any privileges to perform any tasks on AWS accounts
+		- Users must be granted permissions to access any service or perform any operation in AWS. 
+			- User permissions are granted by either adding the user to a group with required permissions or by directly attaching an access policy to a user.
+
+	- IAM users can be a member of any IAM group, but an IAM group cannot be a member of any IAM group.
+		- an IAM group cannot be nested
+
+	- One user can be part of multiple policies and multiple policies can be attached to a single user.
+
+	- An IAM user password is used for an AWS dashboard login and an access key and secret key pair is used for API, CLI, and SDK's authentication.
+
+	- Configuring or re-configuring password policy does not impact existing user password.
+		- Password policy comes into effect, only when a new user is created or when an existing user updates the password
+
+	- It is important to remember that IAM policies are JSON documents, written as per the IAM policy standards. 
+		- By default, access to AWS resources is denied, so usually IAM policies are written to grant permission to any user, group, or service
+
+	- It is very important to understand policy structure (that is effect, action, and resource), how to write policy, and interpret it.
+
+	- Understand IAM elements such as users, groups, and roles.
+		- users are end users
+		- groups are a bunch of logically similar users,
+		- roles are IAM entities that can be assumed by AWS resources and federated users.
+		- Roles can also be assigned to application or program resources such as EC2 or Lambda.
+		- An attached role has its own policy based on that permission is granted to access various AWS resources.
+
+	- IAM roles dont have permanent credentials
+		- When roles are assumed a temporary access key and secret key is dynamically generated and automatically rotated
+
+	- IAM roles can be of three types
+		- IAM roles for AWS resources (EC2 and Lambda)
+		- IAM roles for cross-accounts(granting permissions to IAM users across AWS accounts)
+		- IAM roles for federated identity
+
+	- Before running AWS CLI it is important to install and configure a default access key, a secret key, region, and output format.
+		- Default output format is JSON.

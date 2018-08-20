@@ -1,0 +1,56 @@
+ 	CloudWatch
+
+ CloudWatch acts as a repository of metrics, by collating raw data from various AWS services or applications, converting it into metrics, statistics, graphs, and facilitates certain actions based on specific dta points in metrics.
+
+ CloudWatch Namespaces
+ - are containers in which metrics for different applications are stored
+ - It is a mechanism to isolate metrics of different applications from each other
+ - Namespaces ensure than an applications' metrics are not accidentally mixed up with 
+ 	any other appliction's metrics.
+
+ Metrics
+   - set of data collected over a period of time with a specific time interval for 
+   	quantitative assessment, measurement, and comparison of performance data generated
+   	by a specific application or a service. 
+   - CloudWatch, by default, stores metrics data at  an interval of 5 mintues
+   - Metrics are region based
+
+  Statistics
+  	- are a collection of aggregated metrics data for a specified period of time
+  	- Metrics data is aggregated using namespace, metric name, dimensions and several 
+  	data points in a given time period
+
+  	Alarms
+  	- CloudWatch alarms help in defining a threshold value that is constantly monitored, and an action is triggered when the threshold condition is breached
+  	- An alarm can have three possible states:
+  		- Alarm statis displays OK when the metric is within defined threshold
+  		- Alarm status displays ALARM when the metric is outside defined threshold
+  		- Alarm status displays INSUFFICIENT_DATA 
+
+  	Billing Alerts
+  	- CloudWatch can also monitor the monthly billing charges for an AWS account
+  	- You can set the threshold for billing
+  	- Only root user can enable the billing alerts
+
+  	CloudWatch best practices
+
+  	- It is best practice to monitor AWS resources and hosted applications using 
+  	CloudWatch.	
+  		- It helps in identifying performance bottlenewcks and also helps in optimizing resource costs
+  	- It is recommended that you enable billing alerts for an AWS account.
+  		- It helps to monitor the monthly costs and keep a tab on them
+  	- By default, CloudWatch provides basic monitoring for resources and records metrics at a 5-minute interval.
+  		- It is recommended that you use detailed monitorin gfor critical resources which recors metrics at a 1-minute interval
+  	- Enable custom metrics where required. 
+  	- Create custom metrics for monitoring application behavior and link them to CloudWatch
+  	- Enable Auto Recovery and Auto Restart Alarms for your critical EC2 instances
+  		- It can automatically recover the instances from hardware related or virtualization host related issues on AWS.
+  	- It is recommended that you automate monitoring tasks as much as possible
+  	- Upload your critical custom logs to CloudWatch for quick statistical analysis
+  	- While creating custom metrics, verify log files on your EC2 instances with 
+  	  CloudWatch metrics to ensure that the right data synchronizes with CloudWatch
+  	 - Enable SNS notificiations for critical metric threshold breach
+  	 - AWS provides 10 alarms per month per customer for free
+  	 - AWS supports a maximum of up to 5000 alarms for a customer in a region
+  	 - CloudWatch does not validate actions while configuring them.
+  	 

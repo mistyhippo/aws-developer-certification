@@ -1,0 +1,82 @@
+ Other AWS Storage Options
+
+ Amazon S3
+
+ - S3 is a cloud based object storage over the internet
+ - virtually any type of data in any file can be stored on S3
+ - supports object size of 0bytes to 5TB
+ - Objects in S3 are stored in a bucket
+ - Buckets are created at root level with a globally unique name
+ - You can store objects and also folders inside a bucket
+ - Soft limit of 100 buckets per account in S3
+
+ Amazon S3 Common Usage:
+ - can be used for content storage and distribution
+ - static website hosting
+ - big data object store
+ - backup and archival
+ - storing application data as well as for DR
+
+ Amazon Glacier
+ - Glacier is a highly secure, durable, and a very low cost cloud storage service for 
+ archiving data and taking long term backups
+ - Each file or an object stored in Amazon Glacier is called an archive
+ - These stored archives are immutable which means that the contents of the archive cannot be modified
+ - With the help of the S3 lifecycle rules, objects from S3 can be automatically transferred to Glaceier.
+ - These archives can be logically isolated in containers called vaults.
+ - A maximum of 1000 vaults per account per region can be created
+ - Very economical for storing long term archival data which is rarely accessed.
+ - Retrieval incurs charges and may take a minimum of 3-4 hours or more depending on the size of the data
+ - Amazon charges early deletion fees if data is deleted within three months from the date of storing
+
+ Amazon EFS
+ - is a simple to use and scalable file storage which can be used with EC2 instances
+ - It is a fully managed storage service from AWS which can be used for storing GBs to TBs of data 
+ - EFS volumes can be mounte dand accessed by multiple EC2 instances at the same time
+ - It uses the Network File System protocol
+ - EFS is designed to provide very high disk throughput
+ - It can be used for big data and analytics, media, content management, web serving
+
+
+ Amazon EBS
+  - EBS is a persistent, block-level storage from Amazon
+  - Persistent storage is a type of storage which retains the data stored on it even
+  	after power to the device is turne doff.
+  - Block level storage is a type of storage which can be formatted to support specific filesystem like NFS, NTFS, SMB
+  - EBS volumes can be attached to an EC2 instance
+  - Because of its persistent nature, data on EBS volume remains intact even after restarting or stopping an EC2 instance
+  - EBS volumes can be used as a root partition and for installing operating systems
+  - It is also used for storing enterprise applications, application data, and databases
+
+  Amazon EC2 instance store
+  	- Instance store is a temporary block-level storage service from Amazon
+  	- Instance store is temporary in nature
+  	- Data stored in instance store volume is deleted when EC2 instance is either restarted, stopped, or terminated
+  	- It is widely used to store swap files, temporary files, or in applications where
+  	good disk throughput is required but data persistence is not require
+
+  AWS Storage Gateway
+  	- a hybrid storage service which connects on-premise environments with cloud storage using a software appliance
+  	- It seamlessly connects on-premise environments with Amazon's block-level and object-level storage services such as EBS, S3, and Glacier
+  	- Can be configured for use as a file server in conjunction wiht S3. 
+  	- Can also be used as a virtual tape library for backup on S3 and virtual tape shelf for archival on Glacier. 
+
+  	AWS Snowball
+  	- is a petabyte-scale level data transport solution that uses physical appliances to transfer large-scale of data from on-permise environments to the AWS cloud 
+  	- A single snowball appliance can transport up to 80 TB of data
+  	- Snowball comes in two sizes 50TB and 80TB
+  	- Data can be copied over to multiple physical appliances and transported to and from an AWS
+  	- Snowball is used for rapidly and securely transferring bulk data between on-premise data centers and the AWS cloud at a very economical rate
+
+  	AWS Snowmobile
+  	- is an exabyte - scale data transport solution that uses physical containers to transfer extremely large-scale of data from on-premise environment to the AWS cloud
+
+  	Amazon CloudFront
+  	- is a Content Delivery Network(CDN) offered by AWS.
+  	- It is a system of distributed servers spread across edge locations
+  	- Mainly used for caching stati content such as web page, stylesheets, client-side scripts, images
+  	- Can also speed up dynamic content distribution
+  	- When a user hits a URL which is served through FloudFront, it routes the request to the nearest edge location
+  	- The nearest edge location gives minimum latency in serving the request and provides the best possible performance
+  	- used for providing seamless performance on delivery of a website or web application for a user base spread across multiple geographic locations
+  	- It can be used for distributing software or other large files, streaming media files, offering large downloads, and delivering live events.

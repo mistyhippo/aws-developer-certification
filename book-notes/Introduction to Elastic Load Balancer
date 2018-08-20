@@ -1,0 +1,51 @@
+	Introduction to Elastic Load Balancer
+
+	Elastic Load Balancer(ELB)
+	- is an AWS service that automatically distributes incoming network or application traffic to a number of EC2 instances
+	- ELB provides high availability, fault tolerance, elascticity, and security
+	- 2 types of ELB
+		- Classic Load Balancer
+		- Application Load Balancer
+
+	Classic Load Balancer
+		- It handles the traffic depending up application or network level information
+		- It is used for load balancing simple traffic across multiple EC2 instances where the need is to have a highly available, automatic scaling, and secured environment.
+		- Not suitable for the applications that require advanced routing capabilities for handling the application traffic.
+
+	Application Load Balancer
+		- Newere than classica load balancer
+		- Provides advance-application level routing options
+		- Provides the ability to route the traffic based on application content spread across multiple services, micro services, or container services
+
+
+	The working of a Classic Load Balancer
+	- Runs at Layer 4 which is the transport layer
+	- transport layer level load balancer operates at the network protocol level
+	- does not check the content of the actual network packets
+	- does not check specific details of HTTP and HTTPS requests.
+	- distributes load without knowing much detail about the incoming traffic requests
+
+
+	The working of a Application Load Balancer
+	- runs at layer 7, the application layer
+	- more powerful than the classic load balancer
+	- checks the traffic packets for more details
+	- has access to HTTP and HTTPS headers of the requests
+	- supports content-based routing
+	- you can enable host-based and path based routing on an application load balancer
+	- supports routing to multiple ports on a single instance
+	- With support of WebSockets, an Application Load Balancer can enable the application to open an interactive communication session between the browser and an application sever.
+
+
+	ELB Best Practices
+	- While defining a load balancer, it is recommended to identify target AZs and target group
+	- Use multiple AZs in ELB as it provides high availability and fault tolerance
+	- It is highly recommended that a Security group for the ELB opens only required ports and protocols
+	- Always configure health checks for ELB on appropriate ports and protocols
+	- If the ELB is created for a web server, use HTTP/HTTS protocol in heal checks instead of TCP protocol
+	- Do not create internet facing ELB for internal needs
+	- Use SSL security certificates to encrypt and decryp HTTPS connections where possible
+	- If a heavy traffic spike is expected on a given schedule, contact AWS support and ask them to pre-warm the ELB
+	- Use ELB deletion protection from accidental deletion
+	- Use cross-zone load balancing in Classic Load Balancer for evenly distributing the load across all EC2 instances in associated AZs
+	- Carefully enable connection draining on ELBs associated with critical user applications
