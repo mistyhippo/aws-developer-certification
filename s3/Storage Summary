@@ -1,0 +1,138 @@
+	Storage Summary
+
+Exam Tips for S3 101
+
+- Remember that S3 is Object based i.e. allows you to upload files.
+
+- files can be from 0 Bytes to 5 TB
+
+- There is unlimited storage
+
+- Files are stored in Buckets
+
+- S3 is a universal namespace, names must be unique globally. 
+
+- https://s3-eu-west-1.amazonaws.com/acloudguru
+
+- Read after Write consistency for PUTS of new Objects
+
+- Eventual consistency for overwrite PUTS and DELETES(can take some time to propogate)
+
+S3 Storage Classes/Tiers
+
+	- S3(durable, immediately available, frequently accessed)
+	- S3 - IA(durable, immediately available, infrequently accessed)
+	- S3 - Reduced Redundancy Storage ( data that is easily reproducible)
+	- Glacier - Archived data, where you can wait 3-5 hours before accessing
+
+	Remember the core fundamentals of S3
+		- Key (name)
+		- Value (data)
+		- Version ID
+		- Metadata
+		- Access Control Lists
+		- Object based storage only (for files)
+		- Not suitable to install an operating system on
+
+	S3 - Versioning
+		- Stores all versions of an object (including all writes and even if you delete an object)
+		- Greate backup tool
+		- Once enabled, Versioning cannot be disabled, only suspended
+		- Integrates with Lifecycle rules
+		- Versioning MFA Delete capability, which uses multi-factor authentication, can be used to provide an additional layer of security 
+		- Cross Region Replication, requires versioning enabled on the source bucket
+		- Can be used in conjunction with versioning
+		- Can be applied to current versions and previous versions 
+		- Following actions can now be done
+			- Transition to the Standard - Infrequent Access Storage Class
+				(128Kb and 30 days after the creation date)
+		- Archive to the Glacier Storage Class (30 days after IA)
+		- Permanently Delete Objects using lifecycle management rules
+
+	CloudFront
+		- Edge Location - This is the location where content will be cached
+			- This is seperate to an AWS Region/AZ
+
+		- Origin - This is the origin of all the files that the CND will distribute.
+			- This can be either an S3 Bucket, an EC2 instance, an Elastic Load Balancer or Route53.
+
+		- Distribution - This is the name given the CND which consists of a collection of Edge Locations
+
+				- Web Distribution - Typically used for Websites
+				- RTMP distribution - Used for Media Streaming
+
+		- Edge locations are not just READ only, you can write to them too. (i.e. put an object on to them)
+
+		- Objects are cached for the life of the TTL (Time To Live)
+
+		- By default, objects are cached for 24 hours
+
+		- Time To Live is calculated in seconds
+
+		- You can clear cached objects, but you will be charged
+
+		Securing your Buckets
+
+		- By default, all newly created buckets are private including objects within those buckets.
+
+		- You can setup access control to your buckets using
+			- Bucket Policies
+			- Access Control Lists
+
+		S3 buckets can be configured to create access logs which log all requests made to the S3 bucket. 
+			- This can be done to another bucket
+
+		Encryption
+
+		- In Transit
+			SSL/TLS
+
+		- At Rest
+			-Server Side Encryption
+				-S3 Managed Keys - SSE-S3
+				-AWS Key Management, Managed Keys- SSE-KMS
+
+		S3 - Gateway
+
+		- File Gateway - For flat files, stored directly on S3
+
+		-Volume Gateway 
+			- Stored Volumes - Entire Dataset is stored on site and is asynchronously backed up to S3. 
+
+			- Cached Volumes - Entire Dataset is stored on S3 and the most frequently accessed data is cached on site
+
+		- Gateway Virtual Tape Library(VTL)
+			- Used for backup and uses popular backup applications 
+
+		Snowball Exam Tips
+
+		- Snowball
+		- Snowball Edge
+
+		- Understand what Snowblal is
+		- Understand what Import Export is
+
+		- Snowball can:
+			- Import to S3
+			- Export from S3
+
+		S3 Transfer Acceleration
+
+		- You can speed up transfers to S3 using S3 transfer acceleration
+			- This costs extra, and has the greatest impact on people who are in far away location
+
+		- You can use S3 to host static websites
+		- Serverless
+		- Very Cheap, scales automatically
+		- STATIC only, cannot host dynamic sites
+
+		CORS
+		 - Cross Origin Resource Sharing
+		 - Need to enable it on the resources bucket and state the URL for the origin that will be calling the bucket
+
+		 Misc Tips
+
+		 - Write to S3 - HTTP 200 code for a successful write
+		 - You can load files to S3 much faster by enabling multipart upload
+
+		 - Read the S3 FAQ before taking the exam. It comes up A LOT
