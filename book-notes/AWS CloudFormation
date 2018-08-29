@@ -1,0 +1,43 @@
+	AWS CloudFormation
+
+	What is a template?
+
+	- AWS CloudFormation Templates describes all AWS resources and their properties in JSON or YAML format.
+
+	- When these templates are executed, the defined AWS resources are created in their respective AWS account.
+
+	- While creating a stack, if the template path is pointing ot the local machine, then automatically it will upload the CloudFormation template to the AWS S3 bucket in the relevant region.
+		- In each region, AWS CloudFormation will create its own bucket for that.
+
+	What is a stack?
+
+	- A stack is created on a successful execution of a template in CloudFormation. 
+		- Executing a template creates a defined set of AWS resources
+		- A group of these AWS resources defined in CloudFormation is called a stack.
+
+	- If CloudFormation is unable to create any resource, the whole stack creation fails.
+		- When a CloudFormation execution fails, it rolls back all execution steps and deletes any resources created during the process.
+
+	- At the time of creating a stack from the template, AWS CloudFormation only checks for syntax errors in the JSON/YAML notation.
+		- It does not check whether the IAM user has sufficient privileges.
+
+	- The Resources section is the only required section to successfully execute an AWS CFT (CloudFormation Template)
+
+	- Rollbacks are there by default
+
+	Fn:GetATT
+
+	Quiz:
+
+	The default scripting language for cloudformation is JSON
+
+	CloudFormation itself is free, however, the resources it provisions will be charged at the usual rates
+
+	What happens if CloudFormation encounters an error by default?
+		- It will terminate and rollback all resources created on failure
+
+	You are creating a virtual data center using Cloud formationand you need to output the DNS name of your load balancer. What command would you use to achieve this?
+		- FN::GetAttt
+
+	What language are cloud formation  templates written in?
+	 - JSON

@@ -1,0 +1,19 @@
+	Elastic Beanstalk
+
+	- AWS Elastic Beanstalk removes the need to manually build an infrastructure for the developer and makes it possible for them to quickly deploy and manage a web application on AWS of any scale. 
+
+	- AWS Elastic Beanstalk is free, charges only apply for using the underlying resources such as EC2, ELB, and Auto Scaling
+
+	- Elastic Beanstalk supports:
+		- Java
+		- PHP
+		- .NET
+		- Node.js
+		- Python,
+		- Docker,
+		- Ruby
+		- Go
+
+	- The main purpose of AWS Elastic Beanstalk is to set developers free from creating and configuring AWS resources and allow them to focus on application development.
+
+	- Elastic Beanstalk can handle only one Auto Scaling group at a time. 
