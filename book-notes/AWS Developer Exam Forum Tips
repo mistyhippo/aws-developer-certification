@@ -1,0 +1,430 @@
+AWS Developer Exam Forum Tips
+
+http://169.254.169.254/latest/meta-data
+
+SDK:
+	- iOS, Android,Browswer(javascript)
+	- Java, .NET
+	- Node.js, PHP, Python, Ruby
+	- Go, C++
+
+
+SQS 
+
+- message oriented API
+- SQS message can contain up to 256KB of text, billed at 64 KB chucnks
+- single request can have 1 to 10 messages unto maximum of 256KB payload
+- Even though there is one message of 256KB its basically 4 request for billing
+- NO ORDER - SQS messages can be delivered multiple times in any order
+- Design - you have 2 priority queues for priority based message
+	- one for high and the other for lower priority
+- EC2 instances always poll for messages from the queue 
+- pull from the queue not push
+- Visibility timeout by default is 30 seconds up to 12 hour maximum
+- Maximum long polling timeout 20 seconds
+- ReceiveMessageWaitTimeSeconds
+- Messages in the Queue can be retained for up to 14 days
+- First 1 million requests are free
+	- $.50 per every million requests are that 
+
+
+SNS
+
+- works on a publish-subscribe model
+- SNS notifies the message
+- inexpensive pay as you go
+- CloudWatch or AutoScaling triggers SNS
+- SNS can notify to email, text, sms, sqs or any http endpoint
+- protocols: HTTP, HTTPS, EMAIL, EMAIL-JSON, SQS or Application
+	- messages can be customized for each protocol
+- SNS messages are stored redundantly to multiple AZs
+- SNS Dataformat - JSON (Subject, Message, TopicArn, MessageID, unsubscribeURL)
+- $0.50 per 1 million SNS request
+- Different price for different recipient types
+		- to HTTP $0.06/100,000 notifications deliveries
+		- to EMAIL $2/ 100,000 notifications deliveries
+		- to SMS $0.75/ 100 notifications deliveries
+
+
+SWF
+
+- task oriented API
+- Simple Work flow - human interaction to complete order or collection of services to complete a work order
+- Workers - interact with SWF to get task, process received task and return the result
+- Deciders - program that co-ordinates the tasks (i.e. ordering, scheduling)
+- Workers and Deciders can run independently
+- TASK is only assigned ONCE and NEVER DUPLICATED ( key difference from SQS where messages can be processed multiple times)
+- SWF Domain - think of it as a container for the work flow
+	- you can register a domain by Console or API
+- Maximum workflow processing time can be 1 year in seconds
+- SQS is 12 hours processing time
+
+
+CloudFormation
+
+- Use of CFT, Beanstalk and AutoScaling are free but you pay for the AWS resources that these services create
+- Fn::GetATT - values that you can use to return result for an AWS created resource or used to display in output
+- By Default - rollback everything on error
+- Infrastructure as code, Version controlled, declarative and flexible
+
+
+ElasticBeanstalk
+- Uses ASG, ELB, EC2, RDS, SNS, and S3 to provision thing
+- Environment Tier
+	- Webserver
+	- Worker
+- Predefined Configurations
+	- IIS
+	- Node.JS
+	- PHP
+	- Python,
+	- Ruby
+	- Tomcat
+	- Go
+	- .NET
+
+- preconfigured docker
+	- Glassfish
+	- Python
+	- generic docker
+- Environment URL - has to be unique
+- Dashboard
+	- recent events
+	- monitor
+	- logs
+	- alarms
+	- upload and deploy
+	- configurations
+- Configuration
+	- Scaling
+	- Notifications
+	- Software configuration
+	- Networking tier
+	- Data tier
+- Environment properties (Access key and secret key as parameters)
+
+
+Immutable
+	- a new temporary Auto Scaling Group is added to the Elastic Beanstalk environment
+	- EC2 instances with the new application version loaded onto them are dployed un
+
+
+DynamoDB
+
+- fast and flexible NoSQL database
+- single digit ms latency
+- fully managed supports document and key value
+- Table, Item(row), attribute(key-value)
+- Eventual Consistent Reads vs Strongly Consistent Reads
+- Read Capacity Units, Write Capacity Units (Can be scaled up)
+- push button scalability
+- Writes are written to 3 different location/facilities/datacenter(synchronous)
+- Amazon DynamoDB synchronously replicates data across three facilities in AWS Region giving you high availability and data durability
+
+Two types of primary key:
+	- Single Attribute
+		- think unique id
+		- Partition Key (Hash Key)
+		- composed of 1 attribute (no nesting allowed)
+		- Partition key will help determin the physical location of data
+	- Composite key
+		- think unique id and range
+		- Partion Key (Hash Key) & Sort Key (Range key i.e. date)
+		- composed of 2 attributes
+		- if two data have same partion key (same location) it must have a different sort key and they will be stored together on a single location
+
+Secondary Indexes:
+	- Local Secondary Index
+		- Same Partition key + Different Sort Key
+		- can only be created while creating the table
+		- cannot be added/removed/modified later
+
+	- Global Secondary Index
+		- Different Partition Key + Different Sort Key
+		- can be created during the table creation or can be added/removed/modified later
+
+DynamoDB Streams
+	- use to capture any kind of modification to the dynamodb table, lambda can capture events and push notifications through SES
+
+	- Table can be exported to csv
+
+Query vs Scan
+
+- Query operation finds item in a table using only primary key attribute values
+- must provide partition attribute name and the value to search for 
+- By default, Query returns all the data attributes for those items with specified primary keys
+- You can use ProjectionExpression parameter to only return selected attributes
+- Query results are always sorted by the sort key
+	- ascending for both numbers and string by default
+	- to reverse the sort order set the ScanIndexForward parameter to false
+- By default, Queries are going to be Eventually consistent but can be changed to
+StronglyConsistent
+
+- Scan operation basically examines every item
+- Query operation is more efficent than scan operation
+- For quick response time design your table in a way that you can use Query Get or 
+BatchGetItem API(read multiple items can get up to 100 items or 1MB of data)
+- Alternatively design your application to use scan operation in a way that minimize impact of your table's request rate since it can use up the entire tables provisioned throughput in a single scan operation
+
+
+DynamoDB Provisioned Throughput Calculations:
+
+Items == rows
+
+Read Provisioned Throughput
+	- All units are rounded up to 4KB increments
+	- Eventual Consisten reads(default) consist of 2 reads per second
+	- Strongly Consistent reads consist of 1 read per second
+	(Size of Read Rounded to nearest 4KB chunk/4 KB * no of items)/2 <- eventual consistency
+
+	(Size of Read Rounded to nearest 4KB chunk/4KB * no of items)/ 1 <- strongly consistency
+
+
+Write Provisioned Throughput
+- All units are rounded up to 1KB increment
+- All writes consist of 1 write per second
+(Size of write in KB* no of items)/ 1
+
+-When you exceed your maximum allowed provisioned throughput for a table or one or more global secondary index you will get 400 HTTP Status code - ProvisionedThroughputExceededException
+
+- AssumeRoleWithWebIdentity role
+
+- Idempotent conditional write
+
+- Atomic counters - always need to increment so its not idempotent
+
+- If data is critical and no margin of error then you must use Idempotent conditional write
+
+Only Tables(256 table per region) and Provisioned throughput(80K read, 80 write per account for US east, 20K for other regions )limits can be increased
+
+
+
+S3
+
+- Secure, durable, highly scalable object store (1 byte to 5 TB)
+	- universal namespace
+	- object based key value store
+	- VersionID
+	- Metadata
+	- ACL
+- total volume of data and number of objects you can store are unlimited
+- The largest object that can be uploaded in a signle PUT is 5 GB
+- For objects larger than 100 MB customers should consider using Multipart Upload
+- You can use Multipart Upload for objects from 5MB to 5TB in size
+- object based storage vs block based storage (EFS)
+- data is spread out in multiple facilities
+- For PUTS of New Objects(Read after Write Consistency)
+
+Storage Tiers/Class
+- S3 Standard:
+	- Durablity (11 9s)
+	- Availability(99.99%)
+	- reliable regular for just about everything
+
+- S3 IA(Infrequent Access)
+	- Durablity(11 9s)
+	- Availability(99.9%)
+	- accessed every 1 month to 6 months or so(infrquent)
+	- rapid access and low retreival time (few ms)
+
+- S3 RRS(Reduced Redundant Storage)
+	- Durablity(99.99%)
+	- Availabilty(99.99%)
+	- cheapest of all s3
+	- less fault tolerant than the other two since you are willing to lose data
+
+- Glacier
+	- for archival only (3 to 5 hours restore time)
+
+- S3 price
+	- charged for Storage
+	- number of requests
+	- data transfer
+
+- bucket name has to be all lowercase letters
+- S3 for static website hosting (Static Website Hosting > Enable website hosting)
+- Anytime you create a bucket nothing is publicy accessible
+	- anytime you add an object to a bucket its private by defualt (you will get 403)
+- every object inside the bucket can have different storage class 
+	- and you can turn on server side encryption (AES-256)
+
+- regular bucket link: https://s3-eu-west-1.amazonaws.com/ankittest <- https
+
+CORS(Cross Origin Resource Sharing)
+ - to avoid use of proxy
+
+- Versioning
+ 	- once you enable you cannot disable versioning
+ 	- it can be suspended
+ 	- if you want to turn it off, delete the bucket and recreate
+
+ - Once you delete the delete marker, you can get the file back that you deleted while versioning on
+
+ - Every version is stored seperately in the bucket for each version
+
+ - Versionings MFA Delete Capability can be used to provide additional layer of security
+
+ Cross Region Replication
+ 	- (requires versioning enabled on source and destination and buckets)
+ 	- You can enable need source and destination bucket
+ - Existing ovjects will not be replicated, only new objects will be replicated across the region
+
+ Lifecycle management in S3: 
+  - when versioning is disabled: 
+  		- Transtion to IA S2 - min 30 days and has a 128KB minimum of object size
+  - Archive to Glacier
+  	- min 1 day if IA is not checked
+  	- min 60 day if Transition to IA S3 is checked
+  - Permanently Delete
+  	- min 2 day if IA is not checked
+  	- 1 is selected for Glacier
+  	- min 61 day if IA is selected 30
+  	- Glacier is selected 60
+  - When versioning is enabled you have lifecycle management options to take action on previous version as well as current
+
+  Security and Encryption in S3:
+  	- By default, newly created buckets are private
+  	- Access control using Bucket Policies (entire bucket)
+  	- ACL(individual objects and folders)
+  	- access logs - all the request made to S3 buckets, to another bucket or another's S3 bucket
+
+  	Encrytpion
+  		- In Transit -SSL/TLS
+  		- Data at rest
+
+  	Server Side Encryption:
+  		- SSE - S3 Server Side Encryption with S3 managed keys
+  			- amazon AES 256 handled for you
+  			- click on the object and encrypt
+  		- SSE -KMS - AWS Key management services, managed keys - additional charges/ audit trail of keys, amazon manage keys
+
+  		- SSE- C - Server side encryption with Customer provided keys
+  			- you manage encryption keys
+
+  	Client Side Encryption:
+  		- you encrypt the data on the client side and upload to s3
+
+  	- Every non-anonymous request to S3 must contain authentication information to establish the identity of the principal making the request
+  		- In REST, this is done by first putting the headers in a canonical format, 
+  		  then signing the headers using your AWS Secret Access Key
+
+  	- You can insert a presigned url into a webpage to download private data directly from S3
+
+  	- The object creation REST APIs provides a request header, x-amz-server-side-encryption that you can use to request server side encryption
+
+
+  	S3 Transfer Acceleration
+  	- Utilize local edge locations to upload content to S3 - incur extra cost
+  	- further away you are the more benefit you get (faster)
+
+  	Gateway
+  	- Gateway Stored Volumes
+  		- entire dataset is stored onsite and asynchronously backed up to S3
+  	- Gateway Cached Volumes
+  		- Most frequently used data is stored onsite and entire dataset is stored on S3
+  	- Gateway Virtual Taped Library
+  		- Used for backup if you dont want to use Tapes, 
+
+
+  	- Import Export
+
+  		- Import to S3, EBS, Glacier
+  		- export from S3
+
+  	Import/Export Snowball
+  		- Import to S3
+  		- Export to S3
+
+  	- S3 stored data in alphabetical order, so if you want to spread the load across S3, filename should not be similar (Optimize performance)
+
+
+  	CloudFront
+  		- Content Delivery Network
+  			- edge locations
+  			- reduced latency
+  			- traffic servers from the closet nodes
+
+  		- Edge locations
+  			- content will be cached
+  			- different from region/AZ
+  			- TTL(speed of image/media is quicker)
+  			- first user suffers the performance
+  			- can be not only read you can write to it
+
+  		- Origin can be S3, EC2, ELB, Route53 also Non  AWS Origin Server
+  		- Distribution
+  			- name given to the CDN consist of collection of Edge locations
+
+
+  	VPC
+  	- logical datacenters in AWS
+  	- Can span multiple AZ
+  		- can't span multiple regions
+  	- Peer VPC
+  		- no Transitive Peering
+  	- Custom VPC has to be /16 cant go higher
+  		- /8 is not allowed
+  	- When you create a Custom VPC it creates default security group, default network ACL and default route table
+  		- it doesn't create default subnet
+  	- One Subnet == One AZ
+  		- you can have security group spanning multiple AZ
+  	- ACL's span across AZ
+  	- Any CIDR block 5 reserved IPs
+  	- when you create an internet gateway, by default it is attached to a VPC
+  		- only 1 Internet Gateway per VPC
+  	- When you create a VPC Default Routebable (Main Routebable) is created where the default Routes are
+  	- 10.0.0.0/16 Local <- all subnets inside VPC will be able to take to each other
+  	- Don't touch Main route table
+  	- Create another route table to route to the internet (0.0.0.0/0IGW)
+  	- Last thing you associate this new route table to one of the subnet which will make it public
+  	- 1 subnet can have 1 route table
+  	- ICMP is for ping/monitor
+  	- NAT instance and NAT Gatey
+  	- NAT Instance 
+  		- disable source/destination check
+  		- always behind security group
+  		- must be in public subnet
+  		- must have an EIP
+  		- must be a route out of the private subnet to NAt
+  	- Increase the instance size if bottleneck
+  	- Change the main route table - add a route 
+  	- NAT instance is a single point of failover (put behind a ASG)
+  	- NAT gateway - released in 2016 - amazon handled
+  		- You can just create the gateway and assign EIP
+  	- No need for disable source/destination check , no need to put behind security group
+
+
+  	Access Control Lists vs Security Groups
+
+  		- Security groups : 
+  			- are stateful
+  			- any inbound rule, applies to outbound as well
+  			- Only Allow rules
+  			- by default all inbound deny, all outbound allow
+  			- can span across AZ
+
+  		- ACL:
+  			- are stateless
+  			- for default ACL, all inbound and outbound rules are allowed by default
+  				- associated with all subnets in VPC by default
+  			- for Custom ACL, all inbound and outbound traffic is denied by default
+  				- not associated with any subnet
+  			- 1 subnet is only associated with ACL
+  				- granular rules for ACLs, mumbered rules
+  			- rule no. 99 takes precedence over rule no 100
+  				if 99 is blocked and 100 is allowed 99 will be executed
+  			- Can Span across AZ
+
+  		- Epehemeral port - 1024-65535 should be allowed to take traffic
+  			- if you want to BLOCK IP address then must use ACL
+  				- security group doesn't have deny
+
+  		- Bastion
+  			- keep it in public subnet to allow SSH/RDP into instances into private subnet
+
+  	- VPC Flowlogs
+  		- to capture all the traffic information into logs
+  		- logs everything
+
+  	- VPC Cleanup
+  		- can't delete VPC if you have active running instance or ELB is running

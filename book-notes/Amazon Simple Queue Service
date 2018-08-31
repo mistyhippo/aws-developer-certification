@@ -1,0 +1,90 @@
+Amazon Simple Queue Service
+
+SQS is a highly reliable, scalable, and distributed message queueing service provided by Amazon.
+
+Use cases for SQS:
+
+- Decoupling application processes
+	- By segregratin gthe data generation process, the data consumption process and implementing a message queue in between the proess, you can create a data-based interface
+
+- Application scalability
+	- since the application processes are decoupled with a message queue, you can easily scale up the data generation and data consumption processes to control the rate at which the data is processed
+
+- Guaranteed message delivery
+	- use of a message queue ensures that a message is delivered at least once and eventually processed by the processing application as long as the process continues reading the queue
+		- When a process retrieves the message from the queue, it temporarily removes the message from the queue. When the client informs the queue that it has finished processing the message, SQS deletes the message from the qeue.	
+			- If the client does not respond back to the queue in a specific duration, SQS places the message back in the queue
+
+- Message order guarantee
+	- SQS provides a mechanism to process the data in a predefined order
+
+- Asynchronous data processing
+	- SQS allows you to process the messages asynchronously.
+		- This means you can add a message on the queue but do not need to process it
+		immediately. You can add as many messages as required and process them later
+
+- Building resilience in the sytem
+	- If some processess in your application environment go down, your entire enviroment does not go down with it.
+		If a client processing a message goes down, the message is readded to the queue after a specific duration. The message is either processed by another client or the same client after it recovers
+
+- Bringing elasticity to application with SQS
+	- You can host data publisher as well as data consumer processes in separate resources
+		- Data publisher and data consumer resources can be scaled up when there is a high amount of traffic and the resources can be scaled down when the traffic is low
+
+- Analyzing data fow and performance of the processes
+	- SQS can easily help in identifying underperforming resources with the insight on rate at which each of the resources perform
+
+-Building redundancy with SQS
+	- SQS takes care of data risk by persisting the data till its completely processed
+
+- put-get-delete-paradigm
+	- It requires a queue to explicitly stat that the data it has has finished processing themessage it pulled from thehe queue. The message data is kept safe with the queue and gets deleted from the queue only after confirmation that it is processed.
+
+Two types of queues:
+
+Standard queues
+	- sends the data in the same order as it received, however, the order may change
+	- available in all AWS regions
+	- guarantes that a message will be delivered at least once however a message may be delivered more than once
+	- used whn the throughput is more imporant thatn the order in which the data is processed
+
+
+FIFO
+- the order in which the data is sent is fixed
+- supports limited throughput
+- can support up to 300 messages per second without any batching
+- 3000 messages per second with batching
+- guarantees that a message will be delivered exactly once. message remains in queue until the consumer confirms that the message is prcessed
+- used when the order in which the data is processed is more important than throughput
+
+Dead Letter Queue
+- used by other queues for storing failed messages that are not successfully consumed by consumer processes. 
+- if a queue fails to process a message for a predefined number of times, that message is moved to the DLQ
+
+Subscribing a queue to a topic
+	- SQS enables you to subscribe your queues to SNS topics
+	- Subscription permission is automatically managed by SQS
+	- When a message is pulbished to a topic in SNS, that message automatically goes to all the queues subscribed to that topic. 
+
+	Queue monitoring and logging
+		- Amazon automatically gathers CloudWatch metrics for an SQS queue and pushes it to CloudWatch with an interval of five minutes.
+		- A queue is siad to be active for up to six hours
+
+	CloudTrail
+		- is a service that caputres any API call initiated to perform SQS operations on a queue. Keeps logs for auditing and troubleshooting. 
+
+	Authentication
+		- AWS allows you to access SQS with any of the following identities:
+			- Root user
+			- IAM user
+			- IAM role
+				- Federated access
+				- Cross-account access
+				- AWS service access
+				- EC2 applications
+		
+		SSE
+		- Amazon provides SSe to protect sensitive data in SQS
+		- SSE helpsyou transmit sensitive data in encrypted queues
+		- Amazon uses KMS to manage encryption keys
+		- Messages are encrypted by SSE as soon as the messages are added to the queue

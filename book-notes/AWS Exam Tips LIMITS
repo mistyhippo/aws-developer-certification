@@ -1,0 +1,99 @@
+AWS Exam Tips LIMITS
+
+Dynamo DB
+
+- You will be given 256 tables per account
+
+- Only 5 local secondary index and 5 global secondary index per table
+
+- Minimum throughput is 100 for both write and read
+
+- Item size is 400kb
+
+- BatchGetitem returns 100 item up to a maximum of 16MB
+
+- BatchWriteitem will update or put or delete items Maximum 25 items with total maximum request size of 16MB
+
+- Both Query and Scan has size limit of 1MB Default
+
+- 400 ProvisionedThroughputExceedException
+
+- ThroughOutPut calculations for both read and write
+
+- Item size collection should be < 10GB
+
+- Table size can be unlimited
+
+
+SQS
+
+- Messages can contain up to 256 KB
+
+- Default Visibility Time Out is 30 seconds. Maximum is 12 hours.
+
+- Long Polling is 20 seconds
+
+- 1 Million requests are free
+
+- Can retain up to 14 days
+
+SNS
+
+- Maximum 1,000,000 topics per account
+
+- Max 256 characters per topic name
+
+- Max 10 million subscriptions per topic
+
+- You can subscribe until 3 days
+
+
+SWF
+
+- Max 10,000 workflow and activity types
+
+- 100 domains per account
+
+- Max workflow can be 1 year measured in seconds
+
+- Max 1000 open activity tasks
+
+
+S3
+
+- each object size can be 0 byte to 5 TB
+
+- using general put method you can upload only 5GB
+
+- For > 5GB use multi part uploads
+
+- However, if object size is > 100 Mb then amazon recommends using multipart upload
+
+- Check durability and availability values for s3, s3 infrequent access, RRS, Glacier
+
+- Max 100 buckets per user
+
+- Bucket names should be 3-63 characters
+
+
+EBS
+
+- EBS- Backed storage
+
+- Boottime < 1min
+
+- size 16 TB
+
+- Instance-Backed storage
+
+- Boottime < 5min
+
+- size 10GB
+
+
+CloudFormation
+
+- Unlimited templates but maximum 60 parameters per template
+
+- 200 stacks per account
+

@@ -1,0 +1,373 @@
+Diagnostic Quiz Notes
+
+If you are connecting to AWS from a computer, not an EC2 instance, you need to create an AWS user, attach permissions, and use the API access key and secret key in your code.
+	- Users need their own access keys to make programmatic calls to AWS
+
+You decide to configure a bucket for static website hosting. As per the AWS documentation, you create a bucket named "mybucket.com" and then you enable website hosting with an index document of "index.html" and you leave the error document as blank. You then upload a file named "index.html" to the bucket. After clicking on the endpoint of mybucket.com.s3-website-us-east-1.amazonAWS.com you receive a 403 Forbidden error. You then change the CORS configuration on the bucket so that everyone has access, however you still receive the 403 Forbidden error. What additional step do you need to so that the endpoint is accessible to everyone?
+
+	- Change the permissions on the index.html so that everyone has access
+
+
+In regards to their data consistency model, AWS states that "Amazon S3 buckets in all Regions provide read-after-write consistency for PUTS of new objects and eventual consistency for overwrite PUTS and DELETES" What does AWS actually mean when they say Read-after-write consistency for PUTS of new objects?
+
+	- If you write a new key to S3, you will be able to retrieve any object immediately afterwards. Also, any newly created object or file will be visibile immediately, without any delay. 
+	- All regions provide read after write consistency hence the objet will be immediately available
+	- https://aws.amazon.com/s3/faqs/
+	-Youtube: Deep Dive on Amazon S3
+
+
+You decide to create a bucket on AWS S3 called "bucketever" and then perform the following actions in the order that they are listed here
+	- You upload a file to the bucket called 'file1'
+	- You enable versioning on the bucket
+	- You upload a file caled 'file2'
+	- You upload a file caled 'file3'
+	- You upload another file  called 'file2'
+Which of the following is true for your bucket 'bucketever'?
+
+		- The version ID for file 1 will be null, therewil be 2 version IDs for file2 and 1 version ID for file3 
+		- Any objects uploaded prior to versioning will have the version ID as NULL
+
+Server-side encrytion is about data encrytpion at rest. That is, Amazon S3 encrypts your data at the object level as it writes it to the disk in its data centers and decrypts it for you when you go to access it. There are a few different options depending on how you choose to manage encryption keys. One of the options is called 'Server-Side Encryption with Amazon S3-Managed Keys (SSE-S3)'. Which of the following best describes how this encryption method works?
+
+	- Each object is encrypted witha unique key employing strong encryption. As an additional safeguard, it encrypts the key itself with a master key that it regulary rotates
+
+	S3 provides many encryption techniques
+
+Use Server-Side Encryption with Amazon S3-Managed Keys(SSE-S3):
+		- Each object is encrypted with a unique key employing strong multi-factor encryption. 
+		- As an additional safeguard, it encrypts the key itself witha master key that regulary rotates
+		- Amazon S3 server-side encryption uses one of the strongest block ciphers available, 256-bit Advanced Encyption Standard(AES-256), to encrypt your data
+		- Youtube: Encryption and Key Management in AWS
+
+One of your requirements is to setup an S3 bucket to store your files like documents and images. However, those objects should not be directly accessible via the S3 URL, they should ONLY be accessible from pages on your website so that only your paying customers can see them. How can you implement this?
+
+		- You can use a bucket policy and check for the AWS:Refer key in a condition,
+		where the key matches your domain.
+		- By default, all S3 resources are private so only the AWS account that created the resources can access them.
+		- To allow read access to these objects from your website, you can add a 
+		bucket policy that allows S3:GetObject permission with a condition, using the
+		AWS:referer key, that the get request must originate from specific webpages.
+
+Which of the desciption below best decribes that the followign bucket policy does?
+		- read about bucket policies
+
+Your application is trying to upload a 6GB file to Simple Storage Service and receive a "Your proprosed upload exceeds the maximum allowed object size" error message. What is a possible solution for this?
+
+		- Use the mulipart upload API for this object
+		- The Multipart upload API enables ou to upload large objects in parts
+		- You can use this API to upload new large objects or make a copy of an existing object
+		- Multipart uploading is a three step process:
+			- You initiate the upload
+			- You upload the object parts
+			- After you have uploaded all the parts, you ocmplete the multipart upload
+		- Upon receiving the complete multipart upload request, Amazon S3 constructs the object from the uploaded parts, and you can then access the object just as you would any other object in your bucket. 
+
+While working with the AWS S3 API you receive the following error message:409 Conflict. What might be the cause of this error?
+
+		- Bucket already exists
+		- S3 error codes
+
+While hosting a static website with Amazon S3, your static JavaScript code attempts to include resources from another S3 bucket but permission is denied. How might you solve the problem?
+
+		- Enable CORS Configuration
+		- Cross-origin resources sharing(CORS) defines a way for client web applications that are loaded in one domain to interact with resources in a different domain
+		- With CORS support in Amazon S3, you can build a rich client-side web applications with Amazon S3 and selectively allow cross-origin access to your Amazon S3 resources. 
+
+How much data can be stored in S3?
+		- No limits to the amount of data
+
+If your're executing .Net code against AWS on an EC2 instance that is assigned an IAM role, which of the follwing is a true statement?
+
+		- The code will assume the same permissions as the IAM role
+		- The best practice for IAM is to create roles which has specific access to an
+		AWS service and then give the user permission to the AWS service via the role
+
+In S3 what can be used to delete a large number of objects
+
+	- Multi-Object Delete
+		- You can use the Multi-Object-Delete to delete large numbers of objects from 
+		Amazon S3.
+		- This feature allows you to send multiple object keys in a single request
+		- Amazon does not charge you for using this
+
+You are having trouble maintaining session states on some of your applications that are using an Elastic Load Balancer(ELB). As well as there does not seem to be an even distribution of sessions across your ELB. To overcome this problem which of the following is the recommended method by AWS to try and rectify the issues that you are having?
+
+	- Use ElastiCache, which is a web service that makes it easy to setup, manage, and scale a distributed in-memory cache environment in the cloud
+	- This is required for improving session management. 
+	- The scenario described need to avoid non-even distribution of sessions across ELB which most probably is a result of ELB sticky sessions.
+		- Under sticky sessions, ELB must send every request from a specific user to the same web server.
+		- This greatly limits elasticity
+		- First, the ELB cannot distribute traffic evenly, often sending a disproportionate amount of traffic to one sever
+		- Second, auto scaling cannot terminate web servers without losing some user's session state
+	- The suggested solution is to use an external in-memory cache like Elasticache to store transient session data.
+		- It can further improve application performance by storing critical pieces of data in memory for low-latency access. 
+	- By moving the session state to a central location, all the web servers can share a single copy of session state.
+	- This allows ELB to send requests to any web server, better distributing load across all the web servers.
+	- In addition, auto scaling can terminate individual web servers without losing session state information.
+	- ElastiCache improves the performance of web applications by allowing you to retrieve information from a fast, managed, in-memory system, instead of relying entirely on slower disk-based databases. 
+	- ElastiCache is an AWS managed service which simplifies and offloads the management, monitoring, and operation of in-memory environments, enabing your engineering resources to focus on devloping applications. 
+-YOUTUBE: ElastiCache: Deep Dive Best Practices and Usage Patters
+
+
+You are deplying your first EC2 instance in AWS and are using the AWS console to do this You have chosen your AMI and your instance type and have now come to the screen where you configure your instance details. One of the things that you need to decide is whether you want to auto-assign a public IP address or not. You assume that if you do not choose this option you will be able to assign an Elastic IP address later, which happens to be a correct assumtion. Which of the below options best describes why an Elastic IP address would be preferable to a public IP address?
+
+	- With an Elastic IP address, you can mask the failure of an instance or software by rapidly remapping the address to another instance in your account.
+
+What is the best method for maintaining application session state when using an Elastic Load Balancer?
+	
+	- Use ElastiCache
+		- Amazon ElastiCache is a web service that makes it easy to deploy and run Memcached or Redis protocol-compliant server nodes in the cloud.
+		- ElastiCache improves the performance of web applications by allowing you to retreive information from a fast, managed, in-memory system, instead of relying entirely on slower disk-based databases. 
+		- The service simplifies and offloads the management, monitoring and operation of in-memory environments, enabling your engineering resources to focus on developing applications. 
+		- Using Amazon ElastiCache, you can not only improve load and response times to user actions and queries, but also reduce the cost associated with scaling web applications
+
+AMIs can be shared to individual AWS accounts.
+	- True
+	- To share an AMI without making it public all you need are the AWS account IDs
+	- AMIs are a regional resource
+
+EC2 instances are launced from AMIs. Which of the below options are true for a given public AMI.
+	
+	- can onlyused to launch EC2 instances in the same AWS region as the AMI is stored
+	- to make them available across regions, you need to copy them across regions. 
+
+You have an instance store root device on /dev/sda1 on one of your EC2 instance. You are having trouble with this particular instance and you want to either Stop/Start or Reboot the instance but you do NOT want to lose any data that you have stored on
+/dev/sda1. Hence you are unsure as to what woul be best and if you will lose this data using any of these methods to change your instance state. Which of the below statements best describes the effect each chane of instance state would have on the data you have stored on /dev/sda1?
+
+	- The data in an instance store is not permanent - it persists only during the lifetime of the instance. The data will be lost if your terminate the instance if a user creates an EC2 instnace with default parameters. The data will lose on /dev/sda if you reboot or stop/start the instance because data on an instance store volume is ephemeral. 
+		- The data in an instance store persists only during the lifetime of its associated instance
+		- If an instance reboots(intentionally or unintentionally), data in the instance store persists
+		- However, data in the instance store is lost under the following circumstances:
+			- The underlying disk drive fails
+			- The instance stops
+			- The instance terminates
+	- Do not rely on instance  store for valuable, long term data
+	- Instead, use more durable data storage such as S3, EBS, EFS.
+
+Error: Unprotected Private Key File
+
+	- Your private key file must be protected from read and write operations from any other users. If your private key can be read or written to anyone but you, then SSH ignores your key and you see this warning.
+		- To fix this error, execute the follwing command : chmod 400 + privatekey
+
+Which API call occurs in the final process of creating an AMI?
+	
+	- RegisterImage
+	- Youtube: API Gateway tutorial - Lambda Example
+
+What is one key difference between an Amazon EBS-backed and an instance-store backed instance?
+
+	- Amazon EBS-backed instances can be stopped and started
+
+An IAM role, when assigned to an EC2 instance, will allow code to be executed on that instance without API access keys.
+	
+	- The best practice for IAM is to create roles which has specific access to an AWS service and then give the user permission to the AWS service via the role
+
+Which API call would best be used to describe an Amazon Machine Image?
+	- DescribeImages
+	- Describes one or more of the images (AMIs, AKIs, and ARIs)available to you
+	- Images available to you include public images, private images that you own, and private images owned by other AWS accounts but for which you have explicit launch permissions.
+
+To enable a VPC EC2 instance to be publicly accessible without a NAT instance or NAT Gateway, it must have a public IP address inside of a subnet that has a route to an internet gateway.
+	-True
+
+Someone on your team configured a Virtual Private Cloud with two public subnets in two sepearate AZs and two private subnets in two seperate AZs. Each public subnet AZ has a matching private subnet AZ. The VPC and its subnets are properly configured. You also notice that there are multiple webserver instances in the private subnet, and you've been charged with setting up a public-facing Elastic Load Balancer which will accept requests from clients and distribute those requests to the webserver instances. How can you set this up?
+	
+		- Select both of the public subnets when configuring the ELB
+		- When you create a load balancer in a VPC, you can make it an internal load balancer or an internet-facing load balancer.
+			- You create an internet-facing load balancer in a public subnet
+
+Being a good solutions architect means you will always plan for failures in your AWS cloud environment
+	- True
+
+You have created a VPC that has just one subnet with an internet gateway attached and required route table entry set. Which of the following is true with regards to the connection of an EC2 instance located in the VPC?
+	
+		- It needs an EIP or public IP assigned to it in order to connect to the internet and send data in or out
+
+What is the hourly rate to run a VPC?
+
+	- Free. There are no charges for using a VPC
+
+You have multiple instances behind private and public subnets. None of the instances have an EIP assigned ot them. How can you connect them to the internet to download system updates?
+	
+	-Create a NAT instance
+		- You can use a network address translation(NAT) instance in a public subnet in your VPC to enable instance in the private subnet to initiate outbound IPv4 traffic to the internet or other AWS services, but prevent instances from receiving inbound traffic initiated by someone on the internet. 
+
+Can a VPC subnet have multiple route tables?
+
+	- False. 
+	- There can only be one route table per subnet
+
+To connect your remote office to your VPC for internal network access, what would you need to use?
+
+	- VPN
+	- You can connect your VPC to remote networks by using a VPN connection
+
+All operations on elastic IP addresses can be performed programmatically through the API or manually from the AWS managment console.
+	- True
+	- To allocate an Elastic IP address for use in EC2-VPC using the console
+		- Open the Amazon EC2 console
+		- In the navigation pane, choose Elastic IPs
+		- Choose Allocate new address
+		- (EC2-Classic accounts) Choose VPC, and then choose Allocate
+		- (VPC-only accounts) Choose Allocate
+	- To allocate via the CLI use the command: -alloate-address
+
+Buckets can contain both encyrpted and non-encrypted objects
+	- True
+	- There are various ways to encrypt objects in S3:
+
+	Use Server-Side Encryption with Amazon S3-Managed Keys(SSE-S3)
+		- Each object is encyrpted with a unique key employing strong multi-factor encryption
+		- As an additional safeguard it encrypts the key itself with a master key that regularly rotates
+		- Amazon S3 server-side encryption uses one of the strongest block ciphers available, 256 bit Advanced Encryption Standard(AES-256), to encrypt your data
+
+	Use Server-Side Encryption with AWS KMS-Managed Keys(SSE-KMS)
+		- Similar to SSE-S3, but with some additional benefits along with some additional charges for using this service
+		- There are separate permissions for the use of an envelope key that provides added protection against unauthroized access of your objects in S3.
+		- SSE-KMS also provides you with an audit trail of when your key was used and by whom. 
+		- Additionally, you have the option to create and manage encryption keys yourself, or use a default key that is unique to you, the service you're using, and the region your working in
+
+	Use Server-Side Encryption with Customer-Provided Keys(SSE-C)
+		- You manage the encryption keys and Amazon S3 manages the encryption when you access your objects
+
+Elastic Load Balancing uses what technologies for request routing?
+	- DNS
+	- Route 53
+	- When you use ELB, you are given a DNS hostname- any request sent to this host name are delegatd to a pool of Amazon EC2 instance
+	- Route 53 is Amazon's DNS service that hands DNS on the backend
+	- YOUTUBE: What is DNS? Introduction to Domain Name System
+
+Describe the process of registering a mobile device with SNS push notification service using GCM
+	
+	- Submit GCM notification credentials to Amazon SNS, then receive the Registration ID for each mobile device. After that, pass the device token to SNS, and SNS then creates a mobile subscription endpoint for each device and communicates with the GCM service on your behalf. 
+	- For Amazon SNS to send notification messagees to mobile endpoints, whether it is direct or with subscriptions to a topic, you first need to register the app with AWS. 
+		- To register your mobile app with AWS, enter a name to represent your app, select the platform that will be supported, and provide your credentials for the notification service platform. 
+		- After the app is registered with AWS, the next step is to create an endpoint for the app and mobile device.
+		- The endpoint is then used by Amazon SNS for sending notification messages to the app and device.
+
+A core benefit of using a SQS subscription endpoing with Amazon SNS is that SQS Messages can be delivred to applications that require immediate notification of an event and messages are also persistent in an Amazon SQS queue for other applications to process later in time.
+	- True
+	- YOUTUBE: Decouple and Scale Applications using Amazon SQS and Amazon SNS
+	- YOUTUBE: AWS Certified Developer : Intro to SQS & Exam Tips | packtpub.com
+	- One common design pattern is called "fanout"
+		- In this pattern, a message published to a SNS topic is distributed to a number of SQS queues in parallel
+		- By using this pattern, you can build applications that take advantage parallel, asynchronous processing
+
+What is the main advantage of using Amazon SQS?
+
+	- SQS is used by distributed applications and can be used to decouple sending and receiving components without requiring each application component to be concurrently available
+
+You have developed an application that sends an Amazon SNS message to a topic whenever an order is placed for one of your products on an online store you have just created. Any Amazon SQS queues that are described to that topic would receive identical notifications when a new order is placed. This method of message deliver is called a "fanout" scenario. Which of the below descriptions is the closest in describing the common attributes of this scenario?
+	
+	- The Amazon SNS message is sent to a topic and then replicated and pushed to multiple Amazon SQS queues, HTTP endpoints, or email addresses, which allows for parallel asynchronous processing.
+
+Which of the following would you not expect to see in an SNS message body?
+
+	- SubjectID
+	- You will see "Subject" not "SubjectID"
+
+Which of the following would you expect to see in the body of an SNS notification?
+
+	- UnsubscribeURL
+
+Your application utilizes Amazon S3 reduced redundancy storage and you have configured the s3:ReducedRedundancyLostObject notification onf your Amazon S3 Bucket. What services might you use to reate a "distributed" platform that replaces lost RRS objects on Amazon S3 automatically?
+
+	- SNS with SQS subscription endpoint with a worker instance
+	- Amazons SQS is a fast, reliable, scalable, fully managed message queuing service
+	- Amazon SQS makes it simple and cost effective to decouple the components of a cloud application
+	- You can use Amazon SQS to transmit any volume of data, without losing messages or requiring other services to always be available
+
+You have just setup a push notification service to send a message to an app installed on a device with Apple Push Notification Service. It seems to work fine. You now want to send a message to an app installed on devices for multiple platforms, those being the Apple Push Notification Service and Google Cloud Messaging for Android. What do you need to do first for this to be successful?
+
+	- Get a set of credentials in order to be able to connect to the push notification service you are trying to setup.
+	- For Amazon SNS to send notification messages to mobile endpoints, whether it is direct or with subscriptions to a topic, you first need to register the app with AWS. 
+		- To register your mobile app with AWS, enter a name to represent your app, select the platform that will be supported, and provide your credentials for the notification service platform.
+		- After the app is registered with AWS, the next step is to create an endpoint for the app and mobile device
+		- The endpoint is then used by Amazon SNS for sending notification messages to the app and device
+
+Which of the following request headers, when specified in an API call, will cause an object to be SSE?
+	
+	- x-amz-server-side-encryption
+	- Server-side encryption is about protecting data at rest
+
+Amazon SNS provides support for delivery of message attributes to Amazon SQS endpoints and each message attribute consists of the following items: Name, Type, and Value. Which of the following is TRUE regarding message attributes?
+	
+	- Name, type, and value must not be empty or null and the message body shouldn't be empty or null either
+	-Amazon SNS provides support for delivery of message attributes to Amazon SQS endpoints. 
+		- Message attributes allow you to provide structured metadata items about the message
+	- Also, the requirement for each attribute to be not NULL in addition ot the message body is given in the AWS documentation
+
+Which of the following is true if long polling is enabled? 
+	
+	- The reader will listen to the queue until a message is available or until timeout
+	- Amazon SQS long polling is a way to retrieve messages from your Amazon SQS queues
+		- While the regular short polling returns immediately, even if the message queue being polled is empty, long polling doesn't return a response until a message arrives in the message queue, or the long poll times out.
+	- Long polling makes it inexpensive to retrieve messages from your Amazon SQS queue as soon as the messages are available. 
+		- Using long polling might reduce the cost of using SQS, because you can reduce the number of empty receives.
+
+What is Amazon SQS max message size?
+
+	- 256KB
+
+Company B is using the Amazon SQS to decouple their systems for scaleability. However, they need to send messages up to 456Kb in size. What might Company B do in order to send more than 256KB of data?
+
+	- Use the Amazon SQS Extended Client Library for Java
+
+Company B provides an online image recognition serice and utilizes SQS to decouple system components for scalability. The SQS consumers poll the imaging queue as often as possible to keep end to end throughput as high as possible. However, Company B is realizing that pollign in tight loops is burning CPU cycles and increasing costs with empty responses. How can Company B reduce the number empty responses?
+	
+	- Set the imaging queue ReceiveMessageWaitTimeSeconds Attribute to 20seconds
+	- To enable long polling you need to set the value of ReceiveMessageWaitTimeSeconds to greater than 0 and less than or equal to 20 seconds
+
+Which of the following statements is true about SQS standard queues?
+
+	- Messages will be delivered or more times and message delivery order is indeterminate
+
+How many message queues can be created in SQS?
+
+- Any number
+
+Can one configure anonymous access to a queue?
+
+	- True
+	- You can configure an access policy that allows anonymous users to access a message queue
+
+How many requests in SQS are available in the free tier?
+
+	- 1 million
+
+In SQS what is the maximum visibility timeout
+
+	- 12 hours
+
+Amazon S3 can use what type of server side encryption?
+
+	- AES256
+
+In SQS PCI DSS certified?
+
+	- True
+	- Amazon SQS is PCI DSS Level 1 certified
+
+Which of the following is a valid S3 bucket name?
+
+	- Naming restrictions for buckets: 
+		- bucket names must be at least 3 and no more than 63 characters
+		- bucket names must be a series of one or more lables
+		- bucket names must not be formatted as an IP address
+		- bucket names must start with a lowercase letter or number
+
+What is the maximum number of S3 buckets by default allowed per account?
+
+	- 100
+
+You successfully upload a new item to the US-STANDARD region. You then immediately make another API call and attempt to read the object. What will happen?
+	
+	- US-STANDARD has read-after-write- consistency, so you will be able to retrieve the object immediately
+	- all regions provide read after write consistency hence the object would be immediately available
+
+
+
+
+
+
+

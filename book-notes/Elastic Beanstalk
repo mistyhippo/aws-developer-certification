@@ -17,3 +17,13 @@
 	- The main purpose of AWS Elastic Beanstalk is to set developers free from creating and configuring AWS resources and allow them to focus on application development.
 
 	- Elastic Beanstalk can handle only one Auto Scaling group at a time. 
+
+	- By default, Elastic Beanstalk creates a security group and attaches it to the EC2 instances. 
+		- The security group acts as a firewall and allows anyone to connect on port 80.
+
+	Quiz:
+
+	What languages and development stacks is NOT supported by Elastic Beanstalk?
+	- Jetty for Jbos applications
+
+	

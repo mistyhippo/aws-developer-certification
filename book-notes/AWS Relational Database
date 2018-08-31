@@ -1,0 +1,49 @@
+AWS Relational Database
+
+Security Groups
+- security groups act like a firewall
+- They controll access to RDS DB instance by specifying the allowed source port, protocol, and IPs
+
+Three types of security groups can be attached with RDS DB instances:
+	- DB security groups
+		- used when the RDS instance is not in the VPC
+	- VPC secuirty groups
+		- used when the RDS instance is within the VPC
+	- EC2 security groups
+		- can be used with EC2 instances
+
+	DB options groups are used to configure RDS DB engines
+
+- Amazon RDS charges are based on instance type, running time, storage size, type and I/O requests, total backup storage size, and data in and out transfers
+
+Amazon RDS supports six DB engine types:
+- Aurora DB
+- MariaDB
+- Microsoft SQL
+- MySQL
+- Oracle
+- PostgreSQL
+
+- An endpoint is a URL to access an AWS resource
+
+Restoring a DB from a snapshot
+
+- A snapshot can only be restored by creating a new instance
+- You cannot restore a snapshot to an existing instance
+	- While restoring the snapshot to a new RDS instance, you can have a different storage volume type from the one used in the snapshot
+
+It is possible to copy and share an Amazon RDS snapshot from one region to another share it among multiple AWS accounts
+
+RDS best practices:
+
+- Create an individual AWS IAM user to perform DBA taks
+	- Grant the mininum privileges required to perform day to day tasks
+- Before creating an RDS instance it is recommended to create a DB options group and DB parameter group
+
+- Monitor Amazon RDS instance resources to avoid peformance bottlenecks
+
+- It is recommended to keep some extra buffer in memory and a storage volume while choosing RDS instance tpes
+
+- Amazon RDS provides an endpoint to connect to the RDS instance
+	- The IP address beneath that endpoint may change after failover takes place
+
