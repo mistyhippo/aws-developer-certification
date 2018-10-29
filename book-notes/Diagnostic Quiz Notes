@@ -13,8 +13,7 @@ In regards to their data consistency model, AWS states that "Amazon S3 buckets i
 	- If you write a new key to S3, you will be able to retrieve any object immediately afterwards. Also, any newly created object or file will be visibile immediately, without any delay. 
 	- All regions provide read after write consistency hence the objet will be immediately available
 	- https://aws.amazon.com/s3/faqs/
-	-Youtube: Deep Dive on Amazon S3
-
+	
 
 You decide to create a bucket on AWS S3 called "bucketever" and then perform the following actions in the order that they are listed here
 	- You upload a file to the bucket called 'file1'

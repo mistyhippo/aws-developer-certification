@@ -37,7 +37,7 @@
 		- It will terminate and rollback all resources created on failure
 
 	You are creating a virtual data center using Cloud formationand you need to output the DNS name of your load balancer. What command would you use to achieve this?
-		- FN::GetAttt
+		- FN::GetAtt
 
 	What language are cloud formation  templates written in?
 	 - JSON

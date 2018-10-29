@@ -1,0 +1,115 @@
+	Amazon ElastiCache
+
+	Internet scale Apps Need Low Latency and High Concurrency
+
+Amazon ElastiCache
+	- Fully managed, Redis or Memcached compatible, low-latency, in-memory data store
+
+Extreme Performance
+	- In-memory data store and cache for sub-millisecond response times
+
+Fully Managed
+	- AWS manages all hardware and software setup, configuration, monitoring
+
+Easily Scalable
+	- Read scaling with replicas. 
+	- Write and memory scaling with sharding
+	- Non disruptive scaling
+
+
+ElastiCache Redis Key Features:
+
+- Key Value Store
+	Fast in-memory data store in the cloud. Use as a database, cache, message-broker, queue
+
+- Fully Managed & Hardened
+	- Fast in memory data store in the cloud. Use a database, cache, message-broker, queue
+
+- Secure & Compliant
+	- VPC for cluster isolation, encryption at rest/transit, HIPAA compliance
+
+- Highly Available & Reliable
+	- Read replicas, multiple primaries, multi AZ with automatic failover
+
+- Easily Scalable
+	- Cluster with up to 6.1 TB of in memory data
+	- Read scaling with replicas
+	- Write and memory scaling with sharding
+	- Scale out or in
+
+
+Redis #1 Key-Value Data Store
+
+- Fast
+- Open source
+- Simple
+- Highly available
+	- Replication
+- Atomic operations
+	- Supports transactions
+- In-memory key-value store
+- Powerful
+	- 200 commands, Lua scripting, Geospatial, Pub/Sub
+- Various data structures
+	- Strings, lists, hashes, sets, sorted sets, bitmaps , and HyperLogLogs
+
+Fully Managed & Hardened:
+
+	- AWS manages all hardware and software setup, configuration, patching
+	- Detailed monitoring metrics, CloudWatch integration
+	- Optimized swap memory
+	- Smooth failovers
+	- Dynamic write throttling
+
+Secure & Compliant
+
+	- VPC
+		- Isolate cluster to chosen IP range
+	- Encryption
+		- In-Transit: Encrypt all communications between clients, server, nodes
+	- At-Rest:Encrypt backups on disk and in Amazon S3
+	- Support for Redis AUTH
+	- Fully managed: Setup via API, CLI or console, automatic certificate insurance, renewal
+	- Compliance
+		- HIPAA Eligibility for ElastiCache Redis 3.2.6
+
+Highly Available & Reliable
+	- Read replicas for read availability
+	- Multi-AZ with auto failover
+		- Automatic failure detection and replica promotion
+		- Repair failed nodes
+	- Redis cluster sharding
+		- Faster failover
+		- Availability due to partitioning
+
+Easily Scalable with Redis Cluster Mode
+	- Scale memory and compute
+	- Scale up to a cluster of 6.1 TB of in-memory data
+	- A cluster consists of 1 to 15 shards
+	- Each shard has a primary node and up to 5 replica nodes across multiple AZs for read scaling
+	- Increase writes by adding shards
+
+Amazon ElastiCache for Memcached Key Feature: 
+
+	- Fully Managed Memcached
+		- Fast in-memory data store in the cloud.
+		- Use a cache to reduce latency and improve throughput
+	- Secure and Hardened
+		- VPC for cluster isolation
+
+	- Easily Scalable
+		- Sharding to scale in-memory cache with up to 20 nodes and 8.14 TB cluster
+
+	Memcached - Fast Caching
+		- Fast
+		- Open source
+		- No persistence
+		- Very established
+		- Easy to scale
+		- Slab allocator
+		- Supports strings, objects
+		- Multi-threaded
+		- In-memory key-value datastore
+
+		
+

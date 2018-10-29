@@ -173,7 +173,7 @@ Items == rows
 
 Read Provisioned Throughput
 	- All units are rounded up to 4KB increments
-	- Eventual Consisten reads(default) consist of 2 reads per second
+	- Eventual Consistent reads(default) consist of 2 reads per second
 	- Strongly Consistent reads consist of 1 read per second
 	(Size of Read Rounded to nearest 4KB chunk/4 KB * no of items)/2 <- eventual consistency
 

@@ -1,0 +1,157 @@
+Mock test 
+
+Monthly billing for Lambda is based on what?
+	- Execution request and the time is rounded to the nearest 100ms
+
+Which is compulsory section in the CloudFormation template?
+	- Resource
+
+If an EC2 instance with instance store volume is stopped or terminated, any data on the instance store volume is lost:
+	- True
+
+If an EC2 instance with instance store volume is stopped or terminated, any data on the instance store volume is lost:
+	- True
+
+Which of the following statements is true about AWS regions and AZs?
+	- Every region is independent, consists of at least two or more AZs and AZs within regions are interconnected through low-latency dedicated network
+
+Is it possible to stop an RDS instance?
+	- Yes, it is possible to stop for a maximum 7 days when it is in single AZ
+
+Which of the following statements are true? (Select 2)
+	- A group can contain many users, and a user can belong to multiple groups
+	- Groups can't be nested; they can contain only users, not other groups
+
+What is the maximum size of an item in DynamoDB table?
+	- 400KB
+
+Which of the following statements is true?
+	- Security groups apply at the EC2 level and NACL at the network level
+
+Which of the following AWS service supports infrastructure as a code?
+	- CloudFormation
+
+When RDS instance is configured in multi-AZ, what happens when primary instance fails?
+	- Automatically CNAME pointing to the primary DB instance changes to standby DB instance
+
+An organization Example Inc, runs their website on Amazon S3 named https://www.example.com. they have kept their corporate images in a seperate S3 bucket which is accessed on endpoint: https://s2-us-east1.amazonaws.com/examplecorpimages. While testing the website, the Example Inc found that the images are blocked by the browser. In this scenario, what should the company do to resolve the issue such that the images are not blocked by the browser?
+	- Create CORS configuration on examplecorimages bucket for allowing cross-orign requests
+
+Which encryption method is supported by AWS Ec2 and S3 by default?
+	- 256-bit Advanced Encryption Standard(AES-256)
+
+What is the purpose of cfn-init helper script in CloudFormation?
+	- Install and configure application and packages on EC2
+
+A Load balancer can span across:
+	- Multiple AZs
+
+AWS IAM is:
+	- Region-independent and free to use
+
+Which of the following CloudFormation template section matches a key to a corresponding value?
+	- Mappings 
+
+Which of the following statement is true?
+	- VPC can span across multiple-AZs
+
+What happens when the password policy is changed or newly implemented?
+	- It is implemented immediately but is effected the next time an IAM user attempts to change the password
+
+Billing alerts are triggered by which AWS service?
+	- CloudWatch
+
+What is true about Elasticity?
+	- Elasticity refers to automatically provisioning and deprovisioning of resources to match the demand
+
+How do you move/transfer an EC2 instance from one region to another?
+	- Shut down the EC2, take AMI, and copy it in another region to launch the new EC2 instance from the AMI.
+
+Which of the following services are recommended for transferring petabytes of data between on-premises data center and AWS?
+	- Snowball or Snowmobile
+
+RDS stands for what?
+	- Reduced Redundancy Storage
+
+What can be used to provide internet connectivity to the resources residing in a private subnet?
+	- Internet gateway
+
+Which of the following statemtents is true for CloudWatch metrics?
+	- It cannot be manually deleted
+
+What subnet is usually recommended for hosting a database instance in RDS?
+	- Private subnet
+
+What is true about IAM policies?
+	- when IAM policies are changed, it immediately reflects in privileges of all users an groups
+
+Which of the following AWS services is suitable for data archival?
+	- Glacier
+
+What is true about deploying SSL on ELB?
+	- It is suggested to deploy the SSL certificate on ELB to reduce load on the EC2 instance
+
+What is true about IP addressing in AWS?
+	- Private IPs can be accessed only within the VPC
+
+Which of the following feature is supported by DynamoDB?
+	- Auto Scaling
+
+One EBS volume can be attached to?
+	- Only one EC2 instance
+
+Data stored in a S3 can be accessed from?
+	- From anywhere across the internet
+
+Which statement is true?
+	- Every region has at least two AZs and each AZ is isolated but interconnected with low latency dedicated connectivity
+
+Which of the following AWS service offers a NoSQL service?
+	- DynamoDB
+
+What can be done to reduce cost of a mission critical production application hosted on EC2 instances?
+	- Reserved instance can be used
+
+What is the largest individual object size supported by S3?
+	- 5TB
+
+Which AWS services helps to perform log analyzis and resource monitoring?
+	- CloudWatch
+
+What is true about indexes in DynamoDB?
+	- GSI can have a different partition key and sort key compared to it's base table
+
+What happens when CloudFormation stack creation fails?
+	- It rolls back the stack and deletes any resources that have been created
+
+What is session affinity in an ELB?
+	- It enables ELB to bind user's session to a specific EC2 instances
+
+By default, which of the following metrics are not supported by CloudWatch?
+	- Memory free/used
+
+Which of the following statement is true for Lambda?
+	-Security groups and subnets can be assigned with Lambda functions
+
+By default, a newly created object in S3 is what?
+	- Private and only accessible by an owner
+
+Which of the following AWS services helps to use AWS storage as a local storage to the applications installed in the data centers?
+	- AWS storage gateway
+
+Which of the following AWS service provides a relational database as a service?
+	- RDS
+
+Which of the following queues in SQS can target messages that cant be processed(consumed) successfully?
+	- Dead-letter-queue
+
+What consistency model is used for scan operation in DynamoDB?
+	- Eventually consistent
+
+Which of the following AWS services can be used for various notification types?
+	- SNS
+
+Which of the following platforms does not have in-built support on AWS Elastic Beanstalk?
+	- C/C++
+
+

@@ -1,0 +1,244 @@
+Practice Test 2
+
+You have created a mobile application that relies on reading data from DynamoDB. How could you give each mobile device permissions to read from DynamoDB?
+	- Create an IAM role that can be assumed by an app that allows federated users
+		- Before your application can access a database, it must be authenticated to ensure that the application is allowed to use the database, and authorised so that the appkication can only perform actions for which it has permissions
+
+You defind the following S3 bucket policy to grant users access to your bucket, but the S3 bucket policy editor will not allow you to submit it. Why is this policy not working?
+	- S3 bucket policies require a Principal be defined
+		- A policy contains the following elements: 
+		Resources
+			- Buckets and objects are the Amazon S3 resources for which you can allow or deny permissions. In a policy, you use the Amazon Resource Name (ARN) to identify the rsource
+		Actions
+			- For each resource, Amazon S3 supports a set of operations. You identify resource operations you will allow(or  deny) by using action keywords
+		Effect
+			- What the effect will be when the user requests the specific action- this can either be allow or deny
+		Principal
+			- the account or user who is allowed access to th actions and resoruces in the statement. You specify a princiapl only in a bucket policy. It is the users, account, service, or other entity who is the recipient of this permission. In a user policy, the user to which the policy is attaced is the implicit principal
+
+Which DynamoDB API call does not consume capacity units?
+	- UpdateTable
+	- Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams setting for a given table
+
+As you retrieve information from DynamoDB you receive this error:
+"ProvisionedThroughputExceededException", but upon investigation you notice that you're not exceeding your table read capacity throughput. What is causing this error?
+	- You exceeded your maximum allowed provisioned throughput for a table or for one or more global secondary indexes
+
+One DynamoDB read capcity unit respresents one strongly consistent read per second for an item up to 4KB in size
+	- True
+
+Which of the following is not true about SWF
+	- Humans can perform an activity task but not a decision task
+
+Your items are 6KB in size and you want to have 100 strongly consistent reads per second. How many read capcity units do you need to provision
+	- 200
+	- Since each item is 6KB and if we near it to the nearest 4KB, we get 2. Since we  need 100 strongly consistent, it becomes (100 * 2) = 200
+
+S3 does not generally handle error codes with HTTP responses
+	- False
+	- When there is an error, the header information contains:
+		- Content-Type:application/xml
+		- An appropriate 3xx, 4xx, or 5xx HTTP status code
+
+One unit of read capacity is 4KB in size
+
+Since S3 Objects are stored lexicographically, by introducing "randomness" to your s3 names it helps S3 stroage distribute the I/O load across more than one partion. Given the following examples. how could ou add a hashed prefix to the naming convention to increase I/O performance?
+	- One way to introduce randomness to key names is to add a hash string as prefix to the key name. 
+
+The only SNS notification event supported by S3 is S3:ReducedRedundancyLostObject
+	- False
+	- Amazon S3 can publish the following events:
+		- A new object created event
+			- Amazon s3 supports multiple APIs to create objects. You can request notification when only a specified API is used or you can use a wildcard to request notification when an object is created regardless of the API used
+	- An Object removal event 
+		-  Amazon S3 supports deletes of versioned and unversioned objects. You can request notification when an object is deleted or a versioned object is permanently deleted by using the S3:ObjectRemoved:Delete event type. Or you can request notification when a delete marker is created for a versioned object by using S3:ObjectRemoved:DeleteMarkerCreated
+	- A Reduced Redundancy Storage (RRS) object lost event - Amazon S3 sends a notification message when it detects that an object of the RRS storage class has been lost
+
+
+What is the maximum size of an S3 object?
+- 5 TB
+
+Which of the following is a default limit in S3?
+	- Accounts can have a maximum of 100 buckets
+
+Which API call would you use to query an item by its primary key?
+	- GetItem
+	- The GetItem operation returs a set of attributes for the item when given the primary key. If there is no matching item, GetItem does not return any data and there will be no item element in the response.
+	- GetItem provides an eventually consistent read by default. If your application requires a strongly consistent read, set ConsistentRead to true
+	- Although a strongly consistent read might take more time than an eventuallly consistent read, it always returns the last updated value.
+	- The Query operation finds items based on primary key values, which could use both as a hash key and sort key and it will respond with all of the items from the table or index with that partion key value and sort it according to the sort key values
+
+Below are the naming conventions for S3 buckets
+- bucekt can be between 3 and 63 characters long and contain only lowercase, numbers,
+   periods and dashes
+  - buckets cant contain underscores, end with a dash, have consecutive periods
+  - bucket name cannot be formatted as an IP address
+  - bucket name must start with a lowercase letter or number
+
+
+ When using the Ref function in CloudFormation, what do we get back if we pass in the logical ID of an AWS::EC2::Instance object?
+ 	- The object's InstanceId
+
+ You have created an Elastic Load Balance with Duration Based sticky sessions enabled in front of your six Ec2 web application instances in US-West-2. For High Availability, there are three web application instances in Availability Zpone 1 and three web application instances in Availibility Zone 2. To load test, you set up a software based load tester in Availbility Zone 2 to send traffic to Elastic Load Balancer, as well as letting several hundred users brows to the ELB's hostname. After awhile, you notice that the user's ssessions are spread evenly accorss to the EC2 instances in both AZ but the software based load testers traffic is hitting only thhe instances in Availability Zone 2. What steps can you take to resolve this problem?
+ 	- Force the software based load tester to re-resolve DNS before every request
+ 	- Use a third party load testing service to send requests from gloablly distributed clients
+ 	- If you do not ensure that DNS is re-resolved or use multiple test clients to simulate increased load, the test may continute to hit a single IP address when Elastic Load Balancing has actually allocated many more IP addresses. Because your end users will not all be resolving to that single IP address, your test will not a be a realistic sampling of real-world behavior.
+
+ You run an ad-supported photo sharing website using S3 to serve photos to visitors of your site. At some point you find out that other sites have been linking to the photos on your side, causing loss to your business. What is an effictive method to mitigiate this?
+ 	- Remove public read access and use signed URLs with expiry dates
+ 	- You can distribute private content using a signed URL that is valid for a only a short time. Signed URLs that are valid for such a short period are good for distributing content on the fly to a user for a limited purpose, such as distributing movie rentals or music downlaods to customers on demand
+
+ Which of the following are not subject to eventual consistency?
+ 	- All reads of a DynamoDB table
+
+ What is the default visibility timeout for SQS queue in seconds?
+ 	- 30 seconds
+ 	- Each queue starts with a default setting of 30 seconds for the visibility timeout. You can change that setting for the entire queue. Typically, you'll set the visibility timeout to the average time it takes to process and delete a message from the queue. When receiving messages, you can also set a special visiblity timeout for the returned messages without changing the overal queue timeout
+
+ Your supervisor calls you wanting to know why she has not been receiving email notifications for AWS billing alersts. What do you suspect theproblem might be and how can you find out?
+ 	- To receive messages published to a topic, you have to subscribe an endping to that topic. An endpoint is a mobile app, web server, email address, or Amazon SQS queue that can receive notification messages from Amazon SNS. Once you subscribe to an endpoint to a topic and the subscription is confirmed the endpoint will receive all messages published ot that topic
+ 	- Before you create a billing alarm, you must enable billing alerts. You need to do this only once. After you enable billing alerts, you cant turn them off. 
+
+ You want to find out what AMIs are available for you to use in a given region. Which API call is most appropriate?
+ 	- DescribeImages
+
+ Which statement about DynamoDB is true?
+ 	- DynamoDB can use conditional writes for consistency
+ 	- To help clients coordinate writes to data items, DynamoDB supports conditional writes for PutItem,DeleteItem, and UpdateItem operations. 
+ 	- With a conditional write, an operation succeeds only if the item attributes meet or more expected conditions; otherwise it returns an error
+
+ Which of the following statements is trube about DynamoDB?
+ 	- Read requests are eventually consistent unless otherwise specified
+
+ What is the default limit for CloudFormation templates per region?
+ 	- There are no limits to the number of templates
+
+ You have an Ec2 instance deployed with an IAM role with write access permissions to an SQS queue. The instance is attempting to write a 512KB message to an SQS queue. What will the result of this attempt be?
+ 	- The maximum message size for SQS message is 256KB
+ 	- It will fail because it is greate than the 256KB limit for SQS messages
+
+ You receive a call from a potential client who explains that one of th emany services that they offer is running on a micro EC2 instance where users can submit requests for customized e-cards to be sent to friends and family. the e-card website adminstrator was on a cruise and was shocked when he returned to the office in mid-January to find hundreds of angry emails complaining that customers loved ones had not received their Christmas chards. He also had several emails from CloudWatch alerting him that the SQS queue for the e-card application had  grown to over 500 messages on December 25th. You investigate and find that the problem was caused by a crashed Ec2 instance which serves an application server. What do you advice your client to do first?
+ 	- Send an apology to the customers notifying them that ther card will not be delivered
+ 	- The maximum retention period for SQS messages is 14 days, hence all the messages would have been lost by the mid of Jan
+
+ Which of the following can be increased by contacting AWS?
+ 	- DynamoDB tables per account has an inital limit of 256 tables/region
+ 	- S3 buckets per account
+
+ Your "forums" table has a primary key of "id". Using DynamoDB, your able to query the data based on the id primary key. You need to be able to query the forms table by userID. What would you add to the table during table creation time?
+ 	- Create a secondary index
+ 	- Some applications might need to perform many kinds of queries, using a varity of different attributes as query criteria. To support these requirements, you can create one or more global secondary indexes and issue Query requests against these indexes
+
+ 10.2.181.56 is a valid S3 bucket name
+ 	- False
+
+ You're using CloudFormation templates to build out staging environments. What section of the CloudFormation would you edit in order to allow the user to specify the PEM key-name at start time?
+ 	- Parameters section
+ 	- You can use the optional Parameters section to pass values into your template when you create a stack.
+ 	- With parameters, you can create templates that are customized each time you create a stack. Each parameter must contain a vlue when you create a stack.
+ 	- You can specity a default value to make the parameter optional so that you don't need to pass in a vlue when creating a stack
+
+ By default, what event occurs if your CloudFormation received an error during creation?
+ 	- ROLLBACK_IN_PROGRESS
+ 	- By default, the automatic rollback on error feature is enabled. This will caluse all AWS rersouces that AWS CloudFomration created successfully for a stack up to the point where an error occurred to be deleted.
+
+
+ A corporate web application is deployed within an Amazon VPC and is connected to the corporate data center via IPSec VPN. the application must authenticate against the on-premise LDAP server. Once authenticated, logged-in-users can only access an S3 keyspace specific to the user.
+ 	- Develop an identity broker which authenticates against LDAP, and then calls IAM Security Token Service to get IAM federated user credentials. The application calls the identity broker to get IAm federated user credentials to access the appropriate S3 bucket. The application authentiates against LDP and retrieves the name of an IAm role associated wiht the user. 
+
+ Which statement aobut DynamoDB is true?
+ 	- DynamoDB supports Optimistic Locking using JavaSDK
+ 	- Optimistic locking is a strategy to ensure that the client-side item that you are updating(or deleting) is the sames as the item in DynamoDB. If you use this strategy, then your database writes are protected from being overwritten by the writes of others- and vice-versa
+ 	- With optimistic locking, each item has an attribute that acts as a version number. If you retrive an item from a table, the application reocrds the version number of that item. You can update te item, but only if the version number on the server side has not changed. If there is a version mismatch, it means that someone else has modified the item before you did; the update attempt fails, because you have a stale version of the item. If this hasspens, you simply try again by trieving the item and then attempting to update it. Optimistic locking prevents you from accidently overwriting changes that were made by others; it also prevents otehrs from accidently overwriting your changes
+
+ Which of the following will not make a CloudFormation stack deployment to "rollback"?
+ 	- The template contains invalid JSON syntax
+
+ The bastion host needs a minimum configuration and a public IP address
+
+ You are creating several DynamoDB tables for a new project. While doing so, you receive the error message, "LimitExceededException". You are well below the maximum number of tables per account and there is no read or write activity on the tables yet. Why have you received this error?
+ 	- You attempted to create more than one table with a secondary index at a time
+ 	- There are too many concurrent control plane operations. The cummulative number of tables and indexes in CREATING,DELETING, or UPDATING state cannot exceed 10
+ 	If you create more than 1 table with GSI simultaneously it will give us an LimitExceededException error
+ 	- If you want to create more than one table with secondary inedexes, you must do so sequentially.
+
+ A global secondary index is an index with a hash and a range key that can be different from those on the table
+ 	- True
+
+ To host your static website, you can configure an Amazon S3 bucket for website hosting and then upload your website content to the bucket. The website is then available at the region-specific website endpoint of the bucket:
+ <bucket-name>.s3-website<AWS-region>.amazonaws.com
+
+ While working with S3 API you receive the error:403 forbidden. What is the most likely cause of this?
+ 	- AccessDenied
+
+ A dynamoDB table can contain 5 local secondary indexes on a table
+
+ Which one of the following S3 error code does not have a corresponding HTTP 404 status code?
+ 	- MissingSecurityHeader
+
+ S3 Bucket ownership is transferable
+ 	- False
+ 	- By default, all Amazon S3 resources-buckets, objects, and related subresources are private: only the resource owner, an AWS account that created it can access the resource
+
+ AWS S3 coupled with Route53 ALIAS records supports all of the above
+
+ Which API call would you use to attach an EBS volume to an EC2 instance?
+ 	- AttachVolume
+ 	- Attaches an EBS volume to a running or stopped instance and exposes it to the instance with the specified device name
+
+ AWS CloudFormation provides several built-in functions that help you manage your stacks. Use intrinsic functions in your templates to assign values to properties that are not available until runtime
+
+ While working with S3 API your receive the error message: 404 Not Found. What is the most likel cause for this error?
+ 	- NoSuchBucket
+
+ You have items in your table that are 12KB in size and you want to have 10 strongly consistent reads per second. How many read capacity units would you need to provision?
+ 	- 30
+ 	- Since the item size is 12Kb, if we near it to the nearest 4KB we get 3. Since we need 10 reads its 3 * 10 = 30
+
+ A taxi company uses a mobiel GPS application to track the location of each other their 60cabs. The application records the taxi's location to a DynamoDB table every 6 seconds. Each transmission is just under 1 KB, and throughput is spread evenly within that minute. How many units of write capacity should you spcifiy for this table?
+ 	- 10
+ 	- Since the item size is 1KB, if we near it to the nearest 1Kb we et 1
+ 	and since we have 60 cabs it becomes 1 * 60 = 60.since we have a smaple every 6 seconds, per second it becomes to 60/6 = 10
+
+ Your app is using SQS to create distributed applications. Your messages need to contain more information that the 256KB SQS limit size allowed. How could you solve this problem?
+ 	- Store the information in s3 and attach retrieval information to the message for the application to process
+
+ Which of the following options cannot be used inside a CloudFormation template?
+ 	- Ruby statements
+
+ A dynamoDB item is a collection of name and value attributes
+ 	- True
+ 	- In DynamoDB an item is a collection of attributes
+ 	- Each attribute has a name and a value
+ 	- An attribute value can be a scalar, a set, or a document type
+
+
+ What would you set in your CloudFormation template to fire up different instance sizes based off of environment type?
+ 	- Conditions
+ 	- The optional Conditions section includes statemtns that define when a resource is created or when a property is defined. 
+ 	-CloudFormation templtes comprises of various elements such as Parameters,Description,Outputs, Mappings, Conditions, FormatVersions, Metadata, Resources etc. 
+ 		- Resources is the only section which is mandatory for it to function
+
+ You're creating a forum dynamoDB database for hosting web forums. Your "thread" table contains the forum name and each "forum name" can have one or more "subjects". What primary key type would you give the thread table in order to allow more than one subject to be tied to the fourm primary key name?
+ 	- Hash and Range
+ 	- The partition key of an item is also known as its hash attribute
+ 	- the sort key of an item is also known as its range attribute
+
+ Multi-part upload API allows yo to stop and resume uploads
+ 	- True
+ 	- Using multipart upload provides the following advantages;
+ 		- Improved throughput
+ 			- you can uplaod parts in parallel to improve throughput
+ 			- quick recovery from any network issues
+ 			- Smaller part size minimizes the impact of restarting a failed upload due to a network error
+ 		- Pause and resume object upload
+ 			- you can upload object parts over time
+ 			- once you initate a multipart upload thier is no expiry
+
+ You need to announce an emergency downtime for a production AWS web application. This downtime notification will require different sets of instructions for different devices. All of the application users signed up to receive SNS notifications from the "mywebapp" topic when they began using the application and they are currently subscribed to this topic. What are appropriate ways for you to provide timely, device-specific instructios to end users when announcing this downtime?
+ 	- Sending a single message, but customize the text in the SNS message field so that each device gets only the information that is appproate for them.
+
+ Your supervisor is upset about the fact that SNS topics that he subscribed to are now cluttering up his email inbox. How can he stop receiving email from SNS without disrupting other user's ability to receive email from SNS?
+ 	- You can delete the subscription from the SNS topic responsible for the emails
+ 	- He can use the unsubscribe information provided in the emails
+

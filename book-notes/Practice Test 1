@@ -1,0 +1,299 @@
+Practice Test 1
+
+SQS guarantees delivery but there can be duplicates
+	-Amazon SQS requires you to implement your own application-level tracking, especially if your application uses multiple queues.
+
+What is the maximum number of SWF domains allowed in the AWS account?
+	- 100
+	- You can have a maximum of 10,000 workflow and activity types(total) that are either registered or deprecated in each domain
+	- You can have a maximum of 100 Amazon SWF domains(including registered and deprecated domains) in your AWS account
+
+CompanyB has created an e-commerce site using DynamoDB and is designing a products table that includes items purchased and the users who purchased the item. When creating a primary key on a table, which of the following would be th best attribute for the primary key?
+	- user_id where there are any users to few products
+	- When defining primary keys, you should always use a many to few principle 
+	- when designing tables it is important fo rthe data to be disributed evenly across the entire table. It is best practice for performance to set your primary key where there are many primary keys to few rows.
+
+In DynamoDB, an atomic counter allows all write requests to be applied in the order they are received by incrementing or decrementing the attribute value
+	- dynamoDB supports atomic counters, where you use the UpdateItem operation to increment or decrement the value of an existing attribute without interfering with other write requests.
+	- all write requests are applied in the order in which they were received
+
+companyB is writing 10 items to the products table every second. Each item is 15.5Kb in size. What would be the required provisioned write thoughput for best performance?
+	- 160
+	- For write capacity, the rule is to dive the item size by 1KB. 
+	 	-Hence we need to divde 15.5 by 1 which gives us 16 to the nearest 1Kb
+	 	- Since we are writing 10 items per second, we need to multipy 10*16 = 160
+
+companyB is using strongly consistent reads to request 50 items per second from their customer table. Each item is 20KB in size
+What throughput would be required to efficienctly handle the throughput of the table?
+	- 250
+	- For read capacity, the rule is to divide the item size by 4KB
+		- Hence we need to divide 20 by 4 which gives us 5 to the nearest 4KB.
+		-Since we are reading 50 items per second, we need to multipy 50*5=250
+
+In DynamoDB, how many tables can an AWS account have per region?
+	- 256
+
+Which of the following is not a benefit of a query over a scan?
+	- Query and Scan both support eventual consistent reads
+	- It does not do consistent reads
+
+Which API call can be used to retrieve up to 100 items at a time or 1MB of data from DynamoDB table?
+	- BatchGetItem
+	- BatchGetItem operation returns the attributes of one or more items from one or more tables
+	- You identify requested items by primary key
+	- A signle operation can retrivve up to 16MB of data, which can contain as many as 100 items.
+		- BatchGetItem will return a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded or an internal proccessing failure occurs.
+			- If a partial result is returned, the operation returns a value for UnprocessedKeys
+
+For best performance when retrieving data from a table, what "type" of API call should you perform?
+	- Query
+	- A Query operation uses the primary key of a table or a secondary index to directly access items from that table or index
+	-Use the KeyConditionExpression paramater to provide a specific value for the partion key.
+	- The query operation will return all of the items from the table or index with that partition key value
+	- You can optionally narrow the scope of the Query operation by specifying a sort key value and a comparison operator in KeyconditionExpression
+	- You can use the ScanIndexForward parameter to get results in forward or reverse order by sort key
+
+What is the primary difference between a global secondary index and a local secondary index?
+	- A local secondary index has the same partion key as the primary key and the global secondary index can have different partion and sort key
+	- Global secondary index
+		- an index with a partition key and a sort key that can be different from those on the base table. A global secondary index is considered "global" because queries on the index can span all of the data in the base table, across all partitions
+	- Local secondary index
+		- an index that has the same partition key as the base table, but a different sort key. A local secondary index is local in the sens that every partion of a local secondary index is scoped to a base table partition that has the same partition key value
+
+For how long can a SWF workflow task or task execution live up to?
+	- 1 year
+
+How many secondary indexes are allowed per table?
+	- 10
+	- 5 local and 5 gloabl secondary indexes are allowed which gives a maximum of 10 per table
+
+
+You can define up to 5 local secondary indexes and 5 global secondary indexes per table. How can you increase your DynamoDB secondary indexes limit in a region?
+	- You can define a maximum of 5 local secondary indexes and 5 global secondary indexes per table
+	- DynamoDB does not allow secondary index limit increate
+
+CompanyB has many users updating the same table. At tims it is not uncommon for multiple users to updat ethe same item and attribute of an item at the same time. If user A calls an item in a table to update an attribute at the same time as user B and user B updates the table first, what can we deploy in DynamoDB to ensure User A is not updating an item that was updated since User A's table read
+	- Conditional Writes
+	- To help clients coordinate writes to data items, DynamoDB supports conditional writes for PutItem, DeleteItem, and UpdateItem operations
+	- With a conditional write, an operation succeeds only if the item attributes meet one or more expected conditions; ortherwise it returns an error
+
+
+When can you adda a Global secondary index to a table?
+	- Anytime if it is a global index
+	-Global Secondary indexes
+		- can be created at the same time that you create a table.
+		- you can also add a new global secondary index to an existing table, or delete an existing global secondary index
+	- Local secondary indexes
+		- are created at the same time that you create a table
+		- you cannot add a local seconday index to an existing table, nor can you delete any local seconday indexes that currently exist
+
+How many global secondary indexes are allowed per table?
+	- 5
+	- You can define a maximum of 5 local secondary indexes and 5 global secondary indexes per table
+
+CompanyB has a DynamoDB table where the average item size is 10KB. CompanyB anticipates the application will read 100 items from the table per second using eventually consisten reads. How much read capacity throughput should they provision?
+	- 150
+	- For read capacity, the rule is to divide the item size by 4KB.
+	- Hence we need to divide 10 by 4 which gives us 3 to the nearest 4KB
+		- Since we are reading 100 items per second we need to mulitpy 100*3=300
+	- Since its eventual consistency, we need to divide by 2 which gives us 150
+
+Which of the following datatypes can be indexed in DynamoDB
+	- String
+	- Number
+	- Boolean
+
+What are the consistency models available for Local Secondary Indexes in DynamoDB
+	- Strong consistent reads
+	- Eventual consistent reads
+	- Local secondary indexes are updated automatically when the primary index is updated
+
+Any local secondary index in a DynamoDB table can be modified once it's created?
+	- False
+
+What is the maximum limit for the size of an item collection in DynamoDB?
+	- 10GB
+	- This limit does not apply to tables without local secondary indexes
+	- If the an item collection exceeds the 10GB limit, the DynamoDB will return an ItemCollectionSizeLimitEXceededException and you won't be able to add more items to the item collection or increate the size of items that are in the item collection
+
+What is the key feature of SWF?
+	- Guarantees delivery order of messages/tasks
+	- One of the main differences between SWF and SQS is the guarantee of develiery of messages and tasks
+	- Amazon SWF keeps track of all tasks and events in an application
+	- Amazon SQS requires you to implement your own application level tracking, especially if your application uses multiple queues
+
+What is the smallest amount of reserved capacity that can be purchases for DynamoDB?
+		-  100 capacity units(reads or writes)
+
+Can expressions be used as part of the QueryAPI call in DynamoDB
+	- True
+
+What is the maximum size of an item in DynamoDB
+	- 400KB
+	- DynamoDB stores structured data, indexed by primary key, and allows low latency read and write access to items ranging from 1 byte to 400KB
+	- S3 stores unstructured blobs and suited for storing large objects up to 5TB
+		- In order to optimize your costs across AWS services, large objects or infrequently accessed data sets should be stored in Amazon S3, while smaller data elements or file pointers(possibly to Amazon S3 Objects) are best saved in DynamoDB
+
+What is the limit on the number of attributes an item can have in DynamoDB
+	- No limit
+
+What are the API available for DynamoDB
+	- CreateTable
+	- UpdateTable
+	- UpdateItem
+	- For listing tables, the correct API call is ListTables
+
+when computing the read capacity for a scan operations, to what KB is the number of bytes rounded off to?
+	- 4KB
+	- The read units required is the number of bytes fetched by the scan operation, rounded to the nearest 4KB, divided by 4KB
+	- Scanning a table with consistent reads consumes twice the read capacity as a scan with eventually consistent reads
+
+What is the Amazon SNS endpint for The US East(Northern Virginia)
+	- http://sns.us-east-1.amazonaws.com
+
+	Various SNS endpoints for AWS:
+	US East(Northern Virginia): http://sns.us.east-1.amazonaws.com
+	US West(Oregon): http://sns.us-west-2.amazonaws.com
+	US West(Northern California): http://sns.us-west-1.amazonaws.com
+	EU(Ireland): http://sns.eu-west-1.amazonaws.com
+	EU(Frankfurt): http://sns.eu-central-1.amazonaws.comm
+	Asia pacific(Singapore): http://sns.ap-southeast-1.amazonaws.com
+	Asia Pacific(Tokyo): http://sns.ap-northeast-1.amazonaws.com
+	Asia Pacific(Sydney): http://sns.ap-southeast-2.amazonaws.com
+	South America : http://sns.sa-east-q.amazonaws.com
+
+What is the limit to the number of characters for a topic name in sns?
+	- 256
+	- Topic names are limited to 256 characters
+	- Alphanumer characters plus hypens and underscores are allowed
+	- topic names must be unique
+
+When a subscriber subscribes to a topic in SNS, what is the time period available for confirmation?
+	- 3 days
+
+Once a message has been published to SNS, can it be recalled?
+	- False
+
+How is the coordination between worker processed done in SWF?
+	- by writing a program called the decider
+
+
+Does SNS guarantee message delivery to SQS?
+	- True
+	- Amazon SNS guarantees that each message is delivered to Amazon SQS at least once
+
+The intrinsic function Fn::GetATT returns the value of an attribute from a resource in the template
+
+The instrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter
+	- If a delimiter is the empty string, the set of values are concatenated with no delimiter
+
+Does AWS CloudFormation assume default template version if one is not explicityly menitioned in a CloudFormation template?
+	- True
+	- the AWSTemplateFormatVersion section(optional) identifies the capabilities of the template
+	- The latest template format version is 2010-09-09 and is currently the only valid value
+	- The value for the template format version declaration must be a literal string
+	- You cannot use a parameter or function to specify the template format version
+	- If you dont specify a value, AWS CloudFormation assumes the latest template formate version
+
+You have reached your account limit for the number of CloudFormation stacks in a region. How do you increase your limit?
+	- Contact AWs
+
+AWSTemplateFormateVersion declaration is required for the template to work inside CloudFormation
+	- False
+	- The AWSTemplateFormatVersion section(optional)identifies the capabilities of the template
+	- the lastest template format version is 2010-09-09 and is currenlty the only valid value
+
+
+Which API call is used to list all resources that belong to a CloudFormation Stack?
+	- ListStackResources
+	- Returns descriptions of all resources of the specified stack
+	- For deleted stacks, list-stack-resources returns resource information for up to 90 days after the stack has been deleted
+
+AWS CloudFormation provides a set of Python helper scripts that you can use to instll software and stat services on an Amazon EC2 instance in your stack. You can call helper scripts directly from your template
+	- True
+	- The scripts work in conjunction with resource metadata that you define in the same tmeplate
+	- The helper scripts run on the Amazon EC2 instance as part of the stack creation process
+
+fn:GetATT is used on a CloudFormation template to :
+	- Return the vlaue of an attribute from a resource on the template
+	- the intrinsic function Fn::GetAtt returns the value of an attribute from a resource in the template
+
+The instance type is mostly coming from the paramaters section
+	- With the same template, you can use the Ref intrinsic function to specify the parameter value in other parts of the template
+
+What are some of the benefits of using AWS SWF?
+	- Amazon SWF can be used to address many challenges that arise while bilding applications with disributed components
+	- You can use Amazon SWF for:
+		- Writing your applications as asynchronous programs using simple programming constructs that abstract details such as initiating tasks to run remotely and tracking the program's runtime state
+		- Maintaining your applications' execution state. You do not have to use databases, custom systems, or ad hoc solutions to keep exectution state
+		- communicating and managing the flow of work betwen your application components
+		- With SWF, you do not need to design a messaging protocol or worry about lost and duplicated tasks
+		- Centralizing the coordianation of steps in your application. Your coordiantion logic does not have to be scattered across different components
+		- Integrating a range of programs and components, including legacy systems and 3rd party cloud services.
+		- Automating workflows tha tinclude long-running human tasks
+		- Amazon SWF reliably tracks the status of processing steps that run up to several days or months
+
+You can use instrinsic functions only in specifi parts of a template. Currently, you can use instrinsic functions in resource properties, output, metadata attributes, and update policy attributes. You can also use intrinsic functions to conditionally create stack resources
+
+For static website, it need to be publicly readable only permissions for all userss to access the site
+	- Property AccessControll should be set to canned ACL PublicRead which grants FULL_CONTROL to the owner and READ access to AllUsers group
+
+The intrinsic function Fn::Join appends a set of values into a single value separated by the specified delimiter
+
+Of the 6 available sections on a CloudFormation template(Template Description Declaration, Template Format Version Declaration, Parameters, Resources, Mappings, Outputs) which is the only one required for a CloudFormation template to be accepted?
+	- Resource
+	- Specifies the stack resources and their properties, such as Amazon Elastic Compute Cloud instance or an Amazon Simple Storage Service bucket
+
+Which command line commands list all current stacks in your CloudFormation service?
+	- AWS cloudformation list-stacks
+	- AWS cloudformation describe-stacks
+	- The AWS cloudformaiton list-stacks command enables you to get a list of any of the stacks you have created
+		- You can use an option to filter results by stack status, such as CREATE_COMPLETE and DELETE_COMPLETE
+		- The AWS cloudformation list-stackscommand returns summary information about any of your running or deleted stacks, including the name, stack identifier, template, and status
+	- The AWS cloudformation describe-stacks command provides information on your running stacks. You can use an option to filter results on a stack name. This command returns information about the stack, including the name, stack identifier, and status
+
+What is the default behavior of a CloudFormation stack if creation fails?
+	- Rollback
+	- by default, the "automatic rollback on error" feature is enabled
+	- This will cause all AWS resources that AWS CloudFromation created successfully for a stack up to the point where an error occured to be deleted. 
+	- This is useful when you accidentally exceed your default limit of Elastic IP addresses or you don't have access to an EC2 AMI you're trying to run.
+	- This feautre enables you to rely on the fact that stacks are either fully created or not at all which simplifies system administration and layered solutions 
+
+When you use AWS specific parameter types, anyone who uses your template to create or update a stack must specify existing AWS values taht are in his account and in the region for the current stack.
+	- AWS CloudFormation creates or updates any resources
+	- If you use the AWS::EC2::KeyPair::KeyName parameter type, AWS CloudFormation validates the input value against user's existing key pair names before it creates any resources
+
+
+Can software be installed at stack launching process in Cloudformation?
+	- True
+	- AWS CloudFormation provides a set of application bootstrapping scripts that enable you to install packages, files, and services on your EC2 instances by simply describing them in your CloudFormation template
+
+Can Cloudformation be used with Chef and Puppet?
+	- True
+
+Can data be saved when a stack is deleted in Cloudformation?
+	- Yes
+	- Cloudformation allows you to define deletion policies for resources in the template
+	- You can specify that snapshots be created for Amazon EBS volumes or Amazon RDS database instances before they are deleted
+	- You can also specify that a rsource should be preserved and not deleted when the stack is deleted
+	- This is useful for preserving Amazon S3 buckets when the stack is deleted
+
+What is one of the major use cases for using SWF?
+	- video encoding
+
+How much does Cloudformation cost per hour?
+	- There is no cost
+
+What are the different programming language SDK's available for SWF?
+	- .NET
+	- PHP
+	- Java
+
+In SWF what are the containers called for segregrating application resources?
+	- Domains
+
+Is it possible to use IAM to mange access to SWF?
+	- True
+
+
+

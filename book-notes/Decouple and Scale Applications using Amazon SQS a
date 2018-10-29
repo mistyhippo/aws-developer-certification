@@ -1,0 +1,23 @@
+Decouple and Scale Applications using Amazon SQS and Amazon SNS
+
+Payload and Attributes
+	- Key/Value pairs
+	- With business meaning:
+		- CustomerID=6445
+		- MessageType=NewBooking
+
+	- With technical meaning:
+		- SourceHost=ip-
+		- ProgramName=WebServer-PID:0889
+
+SQS Standard Queue
+FIFO Queue
+
+Amazon SNS
+ Publisher > SNS Topic > Subscriber (Lambda/SQS/HTTP)
+
+ Message Streams
+ 	 - ordered 
+ 	 - also known as shards and partitions
+
+ 

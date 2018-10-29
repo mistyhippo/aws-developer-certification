@@ -1,0 +1,183 @@
+Deep Dive on Amazon S3
+
+Amazon EFS
+	- File storage
+
+Amazon S3
+	- Object storage
+Amazon Glacier
+	- Object storage
+
+Amazon EBS
+	- persistent storage
+	- Block storage
+
+Amazon EC2 Instance Store
+	- ephemeral
+	- Block storage
+
+Choice of storage classes on S3:
+
+Standard
+	- Active data
+	- 4 x 9s of available
+	- 11 x 9s of durability
+
+Standard - Infrequent Access
+	- Infrequently accessed data
+	- 3 x 9s of availability
+	- 11 x 9s of durability
+
+Amazon Glacier
+	- Glacier
+
+Storage classes use case:
+
+S3 Standard
+- Big data analysis
+- Content distribution
+- Static website hosting
+
+Standard - IA
+- Backup and archive
+- Disaster recovery
+- File sync & share
+- Long-retained data
+
+Amazon Glacier
+- Long term archives
+- Digital preservation
+- Magnetic tape replacement
+
+Automate data management Lifecycle policies
+	- Automatic tiering and cost controls
+	- Includes two possible actions:
+		- Transition
+			- archives to Standard-IA or Amazon Glacier based on object age specified
+		- Expiration:
+			- deletes objects after specified time
+
+	- Set policies by bucket, prefix, or tags
+	- Set policies for current version or non-current versions
+
+Protect your data from accidental deletes
+
+Versioning:
+	- Protects from unintended user deletes or application logic failures
+	- New version with every upload
+	- Easy retrieval of deleted objects and roll back to previous versions
+
+Automate with trigger-based workflow
+Amazon S3 event notification
+	- Notification when objects are created via PUT, POST, Copy, Multipart Upload, or DELETE
+	- Filter on prefixes and suffixes
+	- Trigger workflow with Amazon SNS, Amazon SQS, and AWS Lambda functions
+
+Cross-region replication
+	- Automated, fast, and reliable asynchronous replication of data across AWS region
+
+Use cases:
+	- Compliance - store data hundreds of miles apart
+	- Lower latency - distribute data to regional customers
+	- Security - create remote replicas managed by separate AWS accounts
+
+How it works:
+	- Only replicates new PUTs. Once configured, all new uploads into source bucket will be replicated
+	- Entire bucket or prefix based
+	- 1:1 replication between any 2 regions
+	- Versioning required
+	- Deletes and lifecycle actions are not replicated
+
+S3 Transfer Acceleration
+- Faster upload over long distances
+
+- Change your endpoint, not your code
+- No firewall changes or client software
+- Longer distance, larger files, more benefit
+- Faster or free
+- 68 global edge locations
+
+Faster upload of large objects Parallelize PUTs with multipart uploads
+
+- Increase aggregate throughput by parallelizing PUTs on high-bandwidth networks
+	- Move the bottleneck to the network, where it belongs
+
+- Increase resiliency to network errors;
+	- fewer larger restarts on error-prone networks
+
+You can parallelize GETs as well as PUTs
+
+For large objects, use range-based GETs align your get ranges with yur parts
+
+Higher TPS by distributing key names
+	- Use a key-naming scheme with randomness at the beginning for high TPS
+		- Most important if you regularly exceed 100 TPS on a bucket
+		- Avoid starting with a date or monotonically increaing numbers
+
+Distributing key names
+	- Add randomness ot the beginning of the key name with a hash or reversed timestamp
+
+Best Practices  - peformance
+
+- Faster upload over long distances with S3 Transfer Acceleration
+
+- Faster upload for large objects with S3 multipart upload
+
+- Optimize GET performance with Range GET and CloudFront
+
+- SQL Query on S3 with Athena
+
+- Distribute key name for high TPS workload
+
+- Optimize list with S3 inventory
+
+Organize your data with object tags
+
+Manage data based on what it is as opposed to where its located
+	- Classify your data, up to 10 tags per object
+	- Tag your objects with key-value pairs
+	- Write policies once based on the type of data
+	- Put object with tag or add tag to existing objects
+
+
+Audit and montitor access
+AWS CloudTrail data events
+
+Use cases:
+- Perform security analyzis
+- Meet your IT auditing and compliance needs
+- Take immediate action on activity
+
+How it works:
+- Capture S3 object-level requests
+- Enable at the bucket level
+- Logs delivered to your S3 bucket
+- $0.10 per 100,00 data events
+
+Monitor performance and operation
+Amazon CloudWatch metrics for S3
+
+- Generate metrics for data of your choice
+	- Entire bucket, prefixes, and tags
+	- Up to 1,000 groups per bucket
+
+- 1-minute CloudWatch metrics
+- Alert and alarm on metrics
+- $0.30 per metric per month
+
+CloudWatch Metrics for S3
+
+- AllRequests
+- PutRequests
+- GetRequests
+- ListRequests
+- DeleteRequests
+- HeadRequests
+- PostRequests
+- BytesDownloaded
+- BytesUploaded
+- 4xxErrors
+- 5xxErrors
+- FirstByteLatency
+- TotalRequestLatency
+
