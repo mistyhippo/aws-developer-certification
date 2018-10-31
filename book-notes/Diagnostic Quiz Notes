@@ -84,8 +84,7 @@ If your're executing .Net code against AWS on an EC2 instance that is assigned a
 In S3 what can be used to delete a large number of objects
 
 	- Multi-Object Delete
-		- You can use the Multi-Object-Delete to delete large numbers of objects from 
-		Amazon S3.
+		- You can use the Multi-Object-Delete to delete large numbers of objects from Amazon S3.
 		- This feature allows you to send multiple object keys in a single request
 		- Amazon does not charge you for using this
 
@@ -169,7 +168,7 @@ Which API call would best be used to describe an Amazon Machine Image?
 To enable a VPC EC2 instance to be publicly accessible without a NAT instance or NAT Gateway, it must have a public IP address inside of a subnet that has a route to an internet gateway.
 	-True
 
-Someone on your team configured a Virtual Private Cloud with two public subnets in two sepearate AZs and two private subnets in two seperate AZs. Each public subnet AZ has a matching private subnet AZ. The VPC and its subnets are properly configured. You also notice that there are multiple webserver instances in the private subnet, and you've been charged with setting up a public-facing Elastic Load Balancer which will accept requests from clients and distribute those requests to the webserver instances. How can you set this up?
+Someone on your team configured a Virtual Private Cloud with two public subnets in two seperate AZs and two private subnets in two seperate AZs. Each public subnet AZ has a matching private subnet AZ. The VPC and its subnets are properly configured. You also notice that there are multiple webserver instances in the private subnet, and you've been charged with setting up a public-facing Elastic Load Balancer which will accept requests from clients and distribute those requests to the webserver instances. How can you set this up?
 	
 		- Select both of the public subnets when configuring the ELB
 		- When you create a load balancer in a VPC, you can make it an internal load balancer or an internet-facing load balancer.
@@ -244,7 +243,7 @@ Describe the process of registering a mobile device with SNS push notification s
 		- After the app is registered with AWS, the next step is to create an endpoint for the app and mobile device.
 		- The endpoint is then used by Amazon SNS for sending notification messages to the app and device.
 
-A core benefit of using a SQS subscription endpoing with Amazon SNS is that SQS Messages can be delivred to applications that require immediate notification of an event and messages are also persistent in an Amazon SQS queue for other applications to process later in time.
+A core benefit of using a SQS subscription endpoint with Amazon SNS is that SQS Messages can be delivred to applications that require immediate notification of an event and messages are also persistent in an Amazon SQS queue for other applications to process later in time.
 	- True
 	- YOUTUBE: Decouple and Scale Applications using Amazon SQS and Amazon SNS
 	- YOUTUBE: AWS Certified Developer : Intro to SQS & Exam Tips | packtpub.com
@@ -351,7 +350,7 @@ Which of the following is a valid S3 bucket name?
 
 	- Naming restrictions for buckets: 
 		- bucket names must be at least 3 and no more than 63 characters
-		- bucket names must be a series of one or more lables
+		- bucket names must be a series of one or more labels
 		- bucket names must not be formatted as an IP address
 		- bucket names must start with a lowercase letter or number
 

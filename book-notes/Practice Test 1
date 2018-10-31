@@ -9,9 +9,9 @@ What is the maximum number of SWF domains allowed in the AWS account?
 	- You can have a maximum of 100 Amazon SWF domains(including registered and deprecated domains) in your AWS account
 
 CompanyB has created an e-commerce site using DynamoDB and is designing a products table that includes items purchased and the users who purchased the item. When creating a primary key on a table, which of the following would be th best attribute for the primary key?
-	- user_id where there are any users to few products
+	- user_id where there are many users to few products
 	- When defining primary keys, you should always use a many to few principle 
-	- when designing tables it is important fo rthe data to be disributed evenly across the entire table. It is best practice for performance to set your primary key where there are many primary keys to few rows.
+	- when designing tables it is important for the data to be disributed evenly across the entire table. It is best practice for performance to set your primary key where there are many primary keys to few rows.
 
 In DynamoDB, an atomic counter allows all write requests to be applied in the order they are received by incrementing or decrementing the attribute value
 	- dynamoDB supports atomic counters, where you use the UpdateItem operation to increment or decrement the value of an existing attribute without interfering with other write requests.

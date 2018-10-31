@@ -1,0 +1,226 @@
+Practice Test 4
+
+A startups photo-sharing site is deployed in a VPC. An ELB distributes web traffic across two subnets. ELB session stickiness is configured to use the AWS-generated session cookie, with a session TTL of 5 minutes. The webserver Auto Scaling Group is configured as min-size=4, max-size=4. The startups preparing for a public launch, by running load-testing software installed on a single EC2 instance running in us-west-2a. After 60 minutes of load testing, the webserver logs show: Which recommendation can help ensure load-testing HTTP requests are evenly distributed across the four webservers?
+	- Re-configure the load-testing software to re-resolve DNS for each web request
+	- Use a 3rd-party load testing service which offers globally distributed test clients
+	- If you do not ensure that DNS is re-resolved or use multiple test clients to simulate increased load, the test may continue to hit a single IP address when Elastic Load Balancing has actually allocated many more IP addresses.
+		- Because your end users will not all be resolving to that single IP address, your test will not be a realistic sampling of real-world behavior
+
+Which DynamoDB limits can be raised by contacting AWS support?
+	- The number of tables per account
+	- The number of provisioned throughput units per account
+	- An AWS account places some initial maximum limits on the throughput you can provision
+		- The provisioned throughput limit includes the sum of the capacity of the table together with the capacity of all of its global secondary indexes
+		- Per table : 10,000 read capacity units and 10,000 write capacity units
+		- Per account: 20,000 read capcity units and 20,000 write capacity units
+
+Applications running on Amazon EC2
+	- You can use the IAM role to manage temporary credentials for applications that are running on an EC2 instance and making Amazon API requests. 
+	- This is preferable to storing access keys within the EC2 instance
+	- To assign an AWS role to an EC2 instance and make it available to all of its applications, you create an instance profile that is attached to the instance. 
+	- An instance prifle contains the role and enables programs that are running on the EC2 instance to get temporary credentials
+
+Which EC2 API call would you use to retrieve a list of Amazon Machine Images?
+	- DescribeImages
+	- Describes one or more of the images available to you
+
+A corporate web application is deployed within an Amazon VPC and is connected to the corporate data center via IPSec VPN. the application must authenticate against the on-premise LDAP server. Once authenticated, logged-in users can only access an S3 keyspace specific to the user. Which two approaches can satisfy the objectives?
+	- The application authenticated against LDAP, and retrieves the name of an IAM role associated with the user. The application then calls the IAM security Token Service to assume that IAM Role. The application can use the temporary credentials to access the appropriate S3 bucket.
+	- Develop an identity broker which authenticates against LDAP, and then calls IAM Security Token Service to get IAM federated user credentials. The application calls the identity broker to get IAM dederated user credentials with access to the appropriate S3 bucket. 
+	- If you already manage user identities outside of AWS, you can use IAM identity providers instead of creating IAM users in your AWS account. With an identity provider, you can manage your user identities outside of AWS and give these external user identities permissions to use AWS resources in your account. This is useful if your organization already has its own identity system, such as a corporate user directory. It is also useful if you are creating a mobile app or web appliation that requires access to AWS resources.
+
+You are providing AWS consulting services for a company developing a new mobiel application that will be leveraging AMAzon SNS Mobile push for push notifications. In order to send direct notification to individual devices each device registration identifier or token needs to be registred with SNS; however the developers are not sure the best way to do this
+	- Call the CreatePlatformEndpointAPI function to register multiple device tokens
+	- The CreatePlatformEndpoint API creates an endpoint for a device and mobile app on one of the supported push notification services. 
+		- CreatePlatformEndpoint requires the PlatformApplicationArn that is returned from the CreatePlatformApplication.
+		- The EndpointArn that is returned when using the CreatePlatformEndpoint can then be used by the Publish action to send a message to a mobile app or by the Subscribe action for subscription to a topic
+
+
+Server-side encryption is about protecting data at rest. Server side encryption with Amazon S3 managed encryption keys employs strong multi-factor encryption. Amazon S3 encrypts each object with a unique key. As an additional safeguard, it encrypts the key itself with a master key that it regulary rotates. Amazon S3 server side encryption uses one of the strongest ciphers available, 256 bit Advanced Encryption Standard to encrypt your data. The object creation REST APIs provide a request header, x-amz-server-side encryption that you can use to request server-side encryption
+
+You have written an application that uses the Elastic Load Balancing service to spread traffic to several web servers Your users complain that they are sometimes forced to login again in the middle of using your application, after they have already togged in. This is not behavior you have designed. What is a possible solution to prevent this happening?
+	 - Use ElastiCache to save session state
+	 - Amazon ElastiCache is a web service that makes it easy to deploy and run Memcached or Redis protocol-compliant server notd in the Cloud.
+	 - Amazon ElastiCache improves the performance fo web application by allowing you to retrieve information from a fast, managed, in-memory system, instead of relying entirely on slower disk based databases. 
+	 - the service simplifies and offloads the management, monitoring, and operation of in-memory environments, enabling your engineering resources to focus on developing applications. 
+	 - Use Amazon ElastiCache, you can not only improve load and response times to user actions and queries, but also reduce the cost associated with scaling web applications
+
+Always have the primary key or hash key for those attributes which will have many values
+
+Which of the following are correct statemtns with policy evaluation logic in AWS Identity and Access Management
+	- An explicit allow overrites default deny
+	- By default, all requests are denied
+
+
+Optimistic locking is a strategy to ensure that the client-side item that you are updating(or deleting) is the same as the item in DynamoDB. If you use this strategy then your database writes are protected from being overwritten by the writes of others
+
+You are writing to a dynamoDB table and receive the following exception "ProvisionedThroughputExceededException" though accoring to your CloudWatch metrics for the table you are not exceeding your provisioned throughput. What could be the explanation for this?
+	- You're exceeding your capacity on a particular Hash key
+	- "ProvisionedThroughputExceededException" error is caused due to the following reason:
+		- You exceeded your maximum allowed provisioned throughput for a table or for one or more global secondary indexes
+
+A pre-signed URL gives you access to the object idenitifed in the URL, provided that the creator of the pre-signed URL has permissions to access that object. That is, if you receive a pre-signed URL to upload an object, you can upload the object only if the creator of the pre-signed URL has the necessary permissions to upload that object. 
+
+Which of the following are valid arguments for an SNS Publish request?
+	- Subject
+	- Message
+	- TopicArn
+
+Which features can be used to restrict access to data in S3?
+	- Set an S3 bucket policy
+	- Set an S3 ACL on the bucket or the object
+	- By default, all Amazon S3 resources are private. Only the resource owner, an AWS ccount that created it, can access the resource
+	- S3 offers access policy options broadly categorized as resource based policies and user policies. 
+	- Access policies you attach to your resources are referred to as a resource based policies.
+	- You can also attach access policies to users in your account. These are called user policies. 
+
+What AWS products and features can be deployed by Elastic Beanstalk?
+	- Auto scaling groups
+	- Elastic Load Balancers
+	- RDS Instances
+
+A pre-signed URL give you access to the object indentified in the URL, provided that the creator of the pre-signed URL has permissions to access that object. 
+	- If you receive a pre-signed URL to upload an object, you can upload the object only if the creator of the pre-signed URL has the necessary permissions to upload that object
+
+With web identity federation, you don't need to create custom sign-in code or manage your own user idenitities. Instead, users of your app can sign in using a well-known identity provide. Using an Identity provider helps keep your AWS account secure, because you don't have to embed and distribute long-term security credentials with your application.
+
+How can you secure data at rest on an EBS volume?
+	- Use an encrypted file system on top of the EBS volume
+	- EBS encryption can be enabled during the creation of an EBS volume
+	- For an existing EBS volume, you need to use the encryption avaiable at the Operating system level
+
+Which of the following statements about SWS are true?
+	- SWF users deciders and workers to complete tasks
+	- SWF tasks are assigned once and never duplicated
+	- SWF workflow executions can last up to a year
+
+Cross-origin resource sharing(CORS) defines a way for client web application that are loaded in one domain to interact with resources in a different domain.
+	- With CORS support in Amazon S3, you can build rich client-side web applications with Amazon S3 and selectively allow cross-origin access to your Amazon S3 resources
+
+A unit of Write Capacity enables you to perform one write per second for items of up to 1KB in size. 
+A unit of Read Capacity enables you to perform one strongly consistent read per second (or two eventually consistent reads per second) of items of up to 4KB in size
+	- Hence, the strong consistency is more expensive and uses more throughtput than the eventual consistency
+
+Which of the following are valid SNS delivery transports?
+	- SMS
+	- HTTP
+	- HTTPS
+	- Email
+	- SQS  
+
+You have an environment that consists of a public subnet using Amazon VPC and 3 instances that are running in this subnet. These three instances can successfully communicate with other hosts on the internet. You launch a fouth instance in the same sbunet, using the same AMI and security group configuration you used for the others, but find that this instance cannot be accessed from the internet. What shoudl you do to enable internet access?
+	- Assign an Elastic IP address to the fourth instance
+	- An Elastic IP address is a static IPv4 address designed for dynamic cloud computing. An Elastic IP address is associated with your AWS account
+		- With an Elastic IP address, you can mask the failure of an instance or software by rapidly remapping the address to another instance in your account
+	- An Elastic IP address is a public IPv4 address, which is reachable from the Internet. If your instance does not have a public IPv4, you can associate an Elastic IP address with your instance to enable communication with the Internet
+
+Which of the following services are included at no additional cost with the use of the AWS platform?
+	- CloudFormation
+		- There is no additional charge for AWS CloudFormation. You pay for the AWS resources created by using AWS CloudFormation
+	- Auto Scaling
+		- Auto Scaling is enabled by Amazon CloudWatch and carries no additonal fees
+
+After launching an instance thatyou intend to serve as a NAT(Network Address Translation) device in a public subnet you modify your route tables to have the NAT device be the target of internet bound traffic of your private subnet. When you try and make an outbound connection to the Internet from an instance in the private subnet, you are not successful. Which of the following steps could resolve the issue?
+	- Disabling the Source/Destination check attribute on the NAT instance
+	- You can use a network address translation(NAT) instance in a public subnet in your VPC to enable instances in the private subnet to initiate outbound IPv4 traffic to the intnernt or other AWS services but prevent instances from receiving inbound traffic initiated by someone on the Internet
+	- Each EC2 instance preforms source/destination checks by default. This means that the instance must be the source or destination of any traffic it sends or receives. 
+		- However, a NAT instance must be able to send and receive traffic when the source or destination is not itself.Therefore you must disable source/destination checks on the NAT instance
+
+Amazon S3 maintains an index of object key names in each AWS region. Object keys are stored in UTF-8 binary ordering across multiple partition in the index. The key name dictates which partion the key is stored in. 
+
+When using a large Scan operation in DynamoDB, what technique can be used to minimize the impact of a scan on a table's provisioned throughput?
+	- Set a smaller page size for the scan
+	- Because a Scan operation reads an entire page, you can reduce the impact of the scan operation by setting a smaller page size.
+		- The Scan oepration provides a Limit parameter that you can use to set thepage size for your request
+		- Each Scan or Query request that has a smaller page size uses fewer read operation and creates a "pause" between each request. 
+
+Which of the following services are key/value stores?
+	- DynamoDB
+	- Simple Storage Service
+	- Amazon ElastiCache
+
+What item on operation allows the retrieval of multiple items form a DynamoDB table in a single API call?
+	- BatchGetItem
+	- The BatchGetItem operation returns the attributes of one or more items from one or more tables
+	- You identify requested by primary key
+	- A single operation can retreive up to 16MB of data, which can contain as many as 100 items. 
+		- BatchGetItem will return a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal processing failure occurs. 
+			- If a partial result is returned, the operation returns a value for UnprocessedKeys. You can use this value to try the operation starting with the next item to get. 
+
+In DynamoDB, what type of HTTP response codes indicate that a problem was found with the client request sent to the service?
+	- 4xx HTTP response code
+	- An HTTP 400 status code indicates a problem with your request, such as authentication failure, missing required parameters, or exceeding a table's provisioned throughput
+
+Is DynamoDB suited only for high scale based applications?
+	- False
+	- DynamoDB offers seamless scaling so you can start small and scale up and down
+
+Which of the below APIs are available for tables in DynamoDB?
+	- CreateTable
+	- UpdateTable
+	- ListTables
+	- DeleteTable
+	- DescribeTable
+
+What are the new type of SQS queues available in some regions?
+	- FIFO
+
+What configuration does AWS provide to handle uncessfully processed messages in SQS?
+	- Dead letter queues
+
+
+In SQS does long polling cost more than short polling?
+	- False
+	- No Long pollign ReceiveMessage calls are billed the same as short polling ReceiveMessage calls
+
+What are the 2 actions required to fanout identical messages to multiple SQS queues?
+	- Use Amazon SNS to create a topic
+	- Create and subscribe multiple Amazon SQS standard queues to the Amaon SNS topic
+
+What are the protocol versions supported by SQS
+	- TLS 1.0
+	- TLS 1.1
+	- TLS 1.2
+
+How long can message live in an SQS queue
+	- 14 days
+	- You can configure the SQS message retention period from 1 minute to 14 days
+	- the default is 4 day
+	- Once the message retention limit is reached your messages are automatically deleted
+
+What is the maximum length of a topic name in SNS?
+	- 256 characters
+
+
+What are some of the owner operations possible in SNS?
+	- CreateTopic
+	- DeleteTopic
+	- AddPermission
+	- ListTopic
+	- ListSubscriptionsByTopic
+	- SetTopicAttributes
+	- GetTopicAttributes
+	- RemovePermission
+
+Which of the following SNS information item has the following informaton " A Universally Unique Identifier, unique for each notification published"
+	- Messageid
+	- MessageId: a universally unique identifier, unique for each notification published
+	- Timestamp: the time which the notification was published
+	- TopicArn: the topic to which the message was published
+	- Type: the type of the delivery message, set to "notification" for notification
+	- UnsubscribeURL: a link to unsubscribe the end point from this topic and prevent receiving any further notifications
+	- Message: the body of the message as received from the publisher
+
+What is the maximum number of topics allowed per account in SNS?
+	- 100,000
+
+In SNS, push notifications are allowed for multiple platforms
+	- True
+	- push notification platforms supported:
+		- Amazon Device Messaging (ADM)
+		- Apple Push Notification Service (APNS)
+		- Google Cloud Messaging (GCM)
+
+AMIs can only be shared within a region
+	- To make them avaiable across regions, you need to copy them across regions
+	- You can copy an AMI within or across an AWS region using the AWS Management console, the AWS command line or SDKs

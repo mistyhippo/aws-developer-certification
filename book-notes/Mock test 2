@@ -1,1 +1,158 @@
 Mock test 2
+
+What is the maximum execution time for Lambda function to run that can be assigned?
+	- 5 minutes
+
+Which of the following AWS services is used along with S3 to enable S3 Transfer Acceleration?
+	- CloudFront
+
+Which of the following features is supported by DynamoDB?
+	- Supports nested JSON
+
+How many IPs are reserved in a VPC CIDR ranges?
+	-5
+
+Which of the following programming languages is not currently supported by Lambda?
+	- Scala
+
+Which is the effiecent way to serve high-volume read-only application traffic in RDS?
+	- Create one ore more read replicas to serve read-only application traffic
+
+What is the primary purpose of using AWS SQS?
+	- Decoupling application components
+
+AWS EC2 instance store volume provides:
+	- Temporary block storage
+
+Which statements is true about DynamoDB?
+	- DynamoDB uses conditional writes for consistency
+
+Which of the following AWS storage services supports object storage?
+	- S3
+
+Which of the following helper scripts cannot be used while bootstrapping an instance during stack creation in a CFT?
+	- cfn-put-metadata
+
+Which of the following terms attracts CEOs and CTOs to slect cloud computing rather over on premises infrastructure?
+	- Cloud converts CapEx to OpEx and better ROI
+
+Which of the following statemts about SWF is true?
+	- SWF taks are assigned once and never duplicated
+
+Which is the default consistency model in DynamoDB?
+	- Eventually consistent
+
+which of the following engine is not supported by RDS?
+	- Cassandra
+
+The default interval for CloudWatch metrics is what?
+	- 5 minutes
+
+Which of the following notification mechanisms is not supported by SNS?
+	- Pager
+
+Whichof the following is an example of a good DynamoDB hash key?
+	- User ID, where the application has many users
+
+By default, what privileges does a newly created AWS IAM user get?
+	- Does not have any privileges
+
+What is the purpose of the cfn-init helper script in CloudFormation?
+	- Download and install the packages and files described in the template
+
+How many number of objects can be stored in each bucket?
+	- Virtually unlimited
+
+What is true about ECS instances?
+	- An EC2 instance can be Part of multiple target groups
+
+How do you obtain AWS security compliance documents?
+	- Obtain the compliances documents from the AWS compliance reporting service
+
+Packt publication stores periodic log data from it's high traffic book subscription portal to S3. Which object naming convention would give optimal performance on S3 for storing log data?
+	- HH-DD-MM-YYYY-log_instanceID
+
+Which of the following AWS services provides a schemaless database?
+	DynamoDB
+
+What can be done to avoid a single point of failure in AWS?
+	- Create a multi-AZ architecture with ELB
+
+What can be the maximum size of an SQS message?
+	- 256KB
+
+Each datapoint in a cloudwatch requites to have a valid time stamp. This time stamp can be:
+	- Two week in the past and up to two hours into the future
+
+Which of the following statement is true for an internet facing web application?
+	- Web server should be hosted in a public subnet and associated database should be hosted in a private subnet
+
+What is the secured way to access an RDS database from an application deployed on EC2?
+	- Use IAM role with the EC2 instance
+
+Swathy Mohan, working for Packt Publication, is repeatedly try to launch an EC2 instance in organizations' AWS account, however, the instance gets terminated as soon as it is launched. What could be the possible reason behind the issue?
+	- AWS account has reached the maximum EC2 instance limit
+
+Abishek is unable to SSH an EC2 instance which is launched in Packt Publication's AWS account. What could be the possible solution to resolve the accessibiility issue?
+	- Modify the Ec2 instanc'es security group to allow incoming TCP traffic on port 22
+
+Which AWS service triggers scale-in and scale-out in Auto Scaling?
+	- CloudWatch
+
+How do you change the EC2 instance type?
+	- Stop the EC2 instance and change the instance type using EC2 console, API, or CLI
+
+Which AWS service can be used to store archival data in a cost effective way?
+	- AWS Glacier
+
+Packt publication needs to process a big chunk of data stored in S3 using a data analytics process. This process needs to run periodically on an EC2 instance and does not need to have the EC2 instance running after the data is processed and stored back in S3. Which of the following instance type would be cost effective for running these processes?
+	- Spot EC2 instance
+
+Which of the following AWS managed services makes it easy to coordinate work across distributed application components?	
+	- SWF
+
+Which of the following AWS services spports a volume that can be mounted on multiple EC2 instances at a time?
+	- EFS
+
+Which of the following AWS service is not supported as AWS Lambda event source?
+	- EMR
+
+What is true about Amazon SQS queues?
+	 - Standard Queue guarantees exactly-once delivery and FIFO queue guarantees A-least-once delivery
+
+Which of the following multi-AZ data replications is implemented by RDS?
+	- Synchronous
+
+What is the difference between default VPC and custom VPC?
+	- A default VPC is available in each region, while a custom VPC can be created as per requirement
+
+Which of the following AWS services, supports CDN(Content Delivery Network)
+	- CloudFront
+
+Which of the following storage options can create a persistent storage volume in EC2?
+	- EBS
+
+Which AWS service helps to connect a data center to the AWS directly, bypassing the internet?
+	- Direct Connect
+
+Which of the following services empowers ElasticBeanstalk?
+	- ELB
+	- Auto Scaling Group
+	- EC2
+
+What is the default limit for number of s3 buckets that can be created in AWS account?
+	- 100 per account
+
+A security group:
+	- Acts as a firewall at the EC2 level
+
+ELB deletion protection helps to:
+	- Prevents accidental deletion of ELB
+
+Which of the following statement is true?
+	- A user must have the required privileges to successfully create a stack from a template
+
+
+
+
+

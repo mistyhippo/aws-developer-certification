@@ -1,0 +1,262 @@
+Practice Test 3
+
+You have an Amazon S3 bucket that you use to store objects. You'd like to encrypt some of the new objects you upload to this bucket. What header do you need to use in order to request server-side-encryption when using the REST API?
+	- x-amz-server-side-encryption
+	- Server-side encryptions is about protecting data at rest. Server side encryption with Amazon S3-managed encytpion keys employs strong multi-factor encyrption. amazon S3 encrypts each object with a unique key. As an additional safeguard, it encrypts the key itself with a master key that it regularly rotates. Amazon S3 server side encryption uses one of the strongest block ciphers available, 2256 bit Advanced Encryptions Standard to encrypt your data.
+	- Amazon S3 supports bucket policies that you can use if you require server-side encryption for all objects
+
+At what size does AWS recommend customers to use the multi-part upload tool when uploading object to S3?
+	- 100 MB
+
+What kind of messages does SNS send to endpoints?
+	- A JSON document with parameters like Message, Signature, Subject, Type
+	- SNS messages are JSON
+
+Your EC2 component receives a message from a message queue. The message will then become invisible for 30 seconds. What is the ideal API request must be called in order to ensure that the message does not become visible again.
+	- DeleteMessage
+	- The consumer must delete the message from the queue after receiving and processing
+
+Which of the following are supported platforms in Elastic Beanstalk?
+	- Microsoft IIS
+	- Apache
+
+Your application instance takes 60 seconds to process instructuions received in an SQS message. Assuming the SQS queue is configured with the default Visibility Timeout, what is the best way to configure your application to ensure that no other instances retreive a message that has already been processed or is currently being processed?
+	- Use the ReceiveMessage API call to retrieve the message, the ChangeMessageVisiblity API call to increase the visiblity timeout, and the DeleteMessage API call to delete the message when processing completes
+	- SQS has a visibility timeout which gets into effect when a message is read from the SQS queue. The default time is 30 seconds, so normally after a message is read, it would not available for 30 seconds until the message is processed
+	- So you need to increase the visibility timeout to 60 seconds, then read the message and then delete it.
+
+Your supervisor asks you to find a solution for scheduling a sequence of tasks. The sequence may take several months to complete and its very important that no tasks are processed more than once. What AWS service should you recommend?
+	- SWF
+
+A recent increase in the amount of users of an application hosted on an EC2 instance that you manage has caused the instance's OS to run out of CPU resources and crash. The crash caused several users unsaved data to be lost and your supervisor wants to know how this problem can be avoided in the future. Which of the following would you NOT recommend
+	- Take frequent snapshots of the EBS volume during business hours to ensure user's data is backed up
+	- If you take snapshots during business hours, the situation can become worse since I/O is required to create the snapshot. 
+
+You are working with S3 API and receive an error message: 409 Conflict. What is the possible cause of this error?
+	- You're attempting to remove a bucket without emptying the contents of the bucket first
+
+You would like to setup a static website on S3 with the least possible effort. The URL of the website is unimportant to you. Which of the following steps are neccesary?
+	- Upload an index document to your S3 bucket
+	- Select the 'Make Public' Permission for your buckets objects
+	- Enable static website hosting in your S3 bucket properties
+
+In SQS what does the setting, VisibilityTimeout=0 have an effect on your message?
+	- Makes the message immediately available
+	- SQS has a visibility timeout which gets into effect when a message is read from the SQS queue. The default time is 30 seconds, so normally after a message is read, it would not be available for 30 seconds until the message is processed. But if you set the visibility timeout it would mean that the message would be available instantly. 
+
+DynamoDB natively supports cross table joins
+	- False
+	- Use RDS instead
+
+A benefit of multi-part upload is thatyou can upload a file as it is being created
+	- True
+	- Using multipart upload provides the following advantages:
+		- Improved throughput
+			- you can upload parts in parallel to improve throughput
+		- Quick recovery from network issues
+			- smaller part size minimizes the impact of restarting a failed upload due to a network error
+		- Pause and resume object uploads
+			- you can upload object parts over time. Once you initiate a multipart upload there is no expiry: you must explicity complete or abort
+		- Begin an upload before you know the final object size
+			- you can upload an object as you are creating it.
+
+S3 object key names are stored lexicographically
+	- True
+
+A SWS workflow task or task execution can up to how long?
+	- 1 year
+
+You have software on an EC2 instance that needs to access both the private and public IP address of that instance. What's the best way for the software to get that information?
+	- Look it up in instance metadata
+
+Which of the following statements about SQS is true?
+	- Messages will be delivered one or more times, and message delivery order is indeterminate.
+	- SQS makes a best effort to preserver order in messages, but due to the distributed nature of the queue, we cannot guarantee that you will receive messages in the exact order you sent them. 
+		- You typically place sequencing information or timestamps in your messages to that you can reorder them upon receipt. 
+
+As per the documentation, the resources part is mandatory for the cloudformation template
+
+A local secondary index is an index that has the same hash key as the table, but a different range  key
+	- True
+
+What is the function of a conditional write?
+	- A change to a DynamoDB attribute will only be written if that attribute's value has not changed since it was read
+	- With a conditional write, an operation succeeds only if the item attributes meet one or more expected conditions; otherwise it returns an error
+
+Parts of a multi-part upload will not be completed until the "complete" request has been called which puts all the parts of the file together
+	- True
+	- Multipart uploading is a three step process:
+		- You initiate the upload, you upload the object parts
+		- after you have uploaded all the parts, you complete the multipart upload
+		- Upon receiving the complete multipart upload request, Amazon S3 constructs the object from the uploaded parts, and you can then access the object just as you would any other object in your bucket
+
+An item stored in a DynamoDB can contain any number of what associated to it?
+	- Attributes
+
+By default, AWS allows you to have how many DynamoDB tables per account, per region
+	- 256
+
+Which of the follwoing is NOT a common S3 API call?
+	 ReadObject (this does not exist)
+
+you have launched a windows server Ec2 instance which is up and running. You however cannot connect from your corporate laptop using RemoteDesktopConnection over the internet. Which of the following can be a cuse.
+	- The instance security group does not support ingress to port 3389
+	- The instance does not have a route to the internet gateway
+	- The IP address of the laptop is being mased by the corporate network proxy server
+	- Windows RDP works on 3389 port
+	- You need to have an Internet or NAT gatway to connect to the internet
+	- The IP could be being blocked by the corporate network proxy server
+
+Which is the following services can be used to deply systems into AWS
+	- AWS Elastic Beanstalk
+	- AWS CloudFormation
+	- AWS Opsworks
+	- Elastic Beanstalk	
+		- you can quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications. AWS Elastic Beanstalk reduces management complexity without restricting choice or control. You simply upload your application, and Elastic Beanstalk automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring
+	- AWS CloudFormation
+		- gives developers and system administrators an easy way to create and manage a collection of related AWS resources, provisioning and updating them in an orderly and predictable fashion
+	- AWS OpsWorks
+		- is a configuration management services tht uses Chef, an automation platform that treats server configurations as code. OpsWorks uses Chef to automate how servers are configured, deployed, and managed across your Amazon EC2 instances or on premise compute environments
+
+Your are maintaining an application that is spread across multiple web servers and has incoming traffic balanced by ELB. the application allows users to upload pictures. currently each web server stores the image and  a background task synchronizes the data between servers. However, the synchronization task can no longer keep up with the number of images uploaded. What change could you make so that all the web servers have a place to store and read images at the stame time
+	- Store the images in Amazon S3
+
+which of the following is a highly available scalable deployment model for a web service
+	- An autoscaling roup of web servers in two or more AWS AZs
+
+A security system monitors 3000 cameras saving image metadata every 30 seconds to an Amazon DynamoDB. Each sample involves writing 512 bytes of data and the writes are evenly distributed over time. How much write throughput is required for the target table?
+	- 100 write capacity units
+
+Which statements about Amazon RDS are true?
+	- RDS can be deployed within a VPC
+	- RDS supports automated backups
+	- RDS only supports the following databases:
+		- Amazon Aurora
+		- PostgreSQL
+		- MySQL
+		- MariaDB
+		- Oracle
+		- Microsoft SQL Server
+
+For which of these languages does AWS provide an SDK?
+	- PHP
+	- Go
+	- Java
+
+Which of the following programming langguages are officially supported AWS SDks?
+	- Python
+	- Ruby
+
+Which of the following AWS services can be used to record logs of all AWS API calls
+	- AWS CloudTrail
+
+Which of the following services could be used alone to host a static website?
+	- Amazon S3
+	- You can host a static website on Amazon S3.
+		- On a static website, individual web pages include static content
+
+What HTTP response code indicates that an AWS REST API call was successful
+	- 200
+	- S3 REST API calls follow the standards for the web
+
+Which object encryption options are available with Amazon S3.
+	- Server side encryption using Amazon keys
+	- Client side encryption using customer keys
+	- Server side encryption using customer keys
+
+What options are available to a customer who wants to perform penetration testing of his EC2 web servers
+	- A customer should request permission from AWS before performing penetration testing
+
+You are debugging a problem with a web application that writes to an Amazon DynamoDB. You would like to see the actual data in the DynamoDB table to confirm that the data written was correct
+	- Use the AWS CLI to query the DynamoDB table and data
+	- Use the AWS console to view the DynamoDB table and data
+
+Which of the following is an example of a good Amazon DynamoDB hash key schema for provisioned throughput efficiency
+	- Student ID where every student has a unique ID
+	- Always have the primary key or hash key for those attributes which will have many values
+
+Which of the following are AWS IAM entities
+	- User
+	- Group
+	- Role
+
+Which of the following are the responsiblity of AWS
+	- Virtualization infrastructure
+	- Physical security of AWS data centers
+
+You attempt to store an object in the US-East-region in Amazon S3 and receive a confirmation that it has been successfully stored. You then immediately make another API call and attempt to read this object. Will you be able to read this object immediately after?
+	- Yes, US East has read-after-write consistency which means you will have access to the object immediately after
+
+Which of the following are valid sections in AWS Cloudformation template
+	- Parameters
+	- Outputs
+	- Resources
+
+Which of the following are actors in an Amazon SWF workflow
+	- Decider
+	- Activity worker
+	- Workflow starter
+	- The decider and activity worker are part SWF that polls the tasks for work and making decisions
+	- The Workflow starter is the first task of the workflow
+
+Bucket names must be unique across all S3
+	- True
+
+A customer has enabled website hosting on a bucket named "devtoolslogging" in the Singapore region. What website URL is assigned to your bucket?
+	- devtoolslogging.s3-website-ap-southeast-1.amazonaws.com
+
+In AWS, which security aspects are the customer's responsiblity?
+	- Security Group and ACL
+	- Patch management on the EC2 instance's operating system
+	- Life-cycle management of IAM credentials
+	- Encryption of EBS storage volumes
+
+SQS provides a tiemout which is a period of time during which Amazon SQS prevents other consuming components from receiving and processing. What is this time period called?
+	- Visibility Timeout
+
+What are the different services provided by AWS
+	- SQS simple queueing service
+	- AutoScaling
+	- Amazon Elastic container registry (Amazon ECR)
+
+What is the AWS service provided which provides a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability
+	- DynamoDB
+
+Which of the following notification endpoints or clients are supported by Amazon Simple Notification Service?
+	- Email
+	- SMS
+	- When you create a subscription in SNS, below are the protocols available:
+		- HTTP
+		- HTTPS
+		- Email
+		- Email-JSON
+		- Amazon SQS
+		- Application
+		- AWS Lambda
+		- SMS
+
+A company is deploying a two tier, highly available web application to AWS. Which service provides durable storage for static contact while utilizing lower Overall CPU resources for the web tier?
+	- Amazon S3
+	- Amazon S3 is the default storage service that should be considered for companies. It provides durable storage for all static content
+
+Which of the following AWS Services are offered at no cost?
+	- Amazon VPC
+	- Auto Scaling
+
+Resources that are created in AWS are identified by a unique identifier which is known as what option given below
+	- Amazon Resource Name
+
+DynamoDB supports two types of primary keys, "hash" and "hash and range" primary keys
+	- True
+	- the partition key of an item is also known as its hash attribute
+	- the sort key of an item is also know as its range attribute
+
+S3 bucket names should only contain lower case letters, periods, numbers and hyphens and should start with a lower case letter or number and soould be between 3 and 63 characters long
+	- True
+
+Which of the following is true about S3-Server-Side Encryption
+	- It uses AES-256
+	- Server side encyption is about protecting data at rest
+	- Server side encryption with Amazon S3 managed encytpion keys employs strong multi-factor encyption. 
+	- amazon S3 encrypts each obejct with a unique quee
+
